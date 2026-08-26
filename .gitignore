@@ -1,0 +1,28 @@
+# Virtual environment (~1.8 GB)
+.venv/
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Jupyter / tooling
+.ipynb_checkpoints/
+.ruff_cache/
+saved_models/
+data/twd/full_corpus_unfiltered.csv
+data/wcb/full_corpus.csv
+
+
+data/wcb/wcb_train.csv
+data/unlabelled_fomc.csv
+data/unlabelled_global.csv
+
+# Secrets: tokens.env lives on Drive only.
+# NOTE: .env is deliberately NOT ignored -- it holds PYTHONPATH=. and nothing else.
+tokens.env
+
+# Excel lock files, archives, OS cruft
+~$*.xls*
+*.zip
+.DS_Store
+Thumbs.db
