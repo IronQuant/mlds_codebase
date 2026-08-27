@@ -89,6 +89,13 @@ def rule_model(sentences):
       - hawkish if (A1 & B2) or (B1 & A2)  -- e.g. inflation rising, unemployment falling
       - neutral otherwise
       - a negation word flips a hawkish/dovish call to the opposite class
+
+    Args:
+        sentences: List of sentence strings.
+    Returns:
+        A list of integer labels (0 = dovish, 1 = hawkish, 2 = neutral).
+        
+          
     """
     preds = []
     for s in sentences:

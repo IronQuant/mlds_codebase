@@ -9,9 +9,19 @@ def bow(
 ):
     """
     Bag-of-words counts + logistic regression. Returns test predictions.
-    Returns a list of predictions for the test set.
+
+    Args:
+        train_df: The training DataFrame, with columns "sentence" and "label".
+        test_df: The test DataFrame, with column "sentence".
+        ngram_range: The ngram range to use in the CountVectorizer.
+        min_df: The minimum document frequency to use in the CountVectorizer.
+        class_weight: Class weight to use in the LogisticRegression.
+        seed: Random seed for reproducibility.
+
+    Returns:
+        A list of predictions for the test set.
     """
-    # clean() does the tokenising
+
     vec = CountVectorizer(
         tokenizer=clean,
         lowercase=False,
@@ -20,7 +30,6 @@ def bow(
         min_df=min_df,
     )
 
-    # fit on train only
     X = vec.fit_transform(train_df["sentence"].to_list())
     Xt = vec.transform(test_df["sentence"].to_list())
 

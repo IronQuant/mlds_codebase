@@ -63,6 +63,11 @@ def clean(sentence):
 
     Patil(2026) UDA project's recipe.
     No stemming: "tightening" and "tightened" carry distinct policy signals.
+
+    Args:
+        sentence: A string to clean.
+    Returns:
+        A list of cleaned tokens.
     """
     s = re.sub(r"\d+", " ", re.sub(r"[^\w\s]", " ", sentence.lower()))
     return [w for w in s.split() if len(w) >= 3 and w not in STOPWORDS]
