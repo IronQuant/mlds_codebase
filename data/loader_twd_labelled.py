@@ -1,10 +1,9 @@
 """
 Acquire the Shah et al. (2023) labelled benchmark splits.
 GitHub is the only source for all three published
-splits. Fetch_splits() returns all six splits stacked 
-Load_splits() slices one seed into train and test frames
+splits. Fetch_splits() returns all six splits stacked. Load_splits() 
+slices one seed into train and test frames.
 (or the chronological partition out of them) 
-Nothing is stored.
 """
 
 import io
