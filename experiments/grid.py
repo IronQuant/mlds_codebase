@@ -5,7 +5,7 @@ import polars as pl
 from config import SHAH_PLM, SHAH_SEEDS
 from data.loader_twd_labelled import load_splits
 from models.plm_finetune import finetune
-from results import save_result
+from utils.results import save_result
 
 LEARNING_RATES = (2e-5, 1e-5, 5e-6)
 BATCH_SIZES = (32, 16, 8)
