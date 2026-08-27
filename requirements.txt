@@ -8,7 +8,9 @@ anthropic==0.117.0        # zero-shot LLM classification
 fastexcel==0.20.2         # polars.read_excel backend for the benchmark splits
 ftfy==6.3.1               # mojibake repair in corpus_helpers.normalize
 gensim==4.4.0             # GoogleNews word2vec vectors
+huggingface-hub==1.18.0   # dataset downloads in the loaders
 matplotlib==3.10.9        # figure notebooks + utils/plotting_helpers
+nltk==3.9.4               # sentence splitting in loader_twd_unlabelled
 numpy==2.4.6
 pandas==3.0.3
 polars==1.41.2
