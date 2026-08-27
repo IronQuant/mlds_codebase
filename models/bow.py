@@ -4,7 +4,9 @@ from sklearn.linear_model import LogisticRegression
 from models.preprocessing import clean
 
 
-def bow(train_df, test_df, ngram_range=(1, 1), min_df=2, class_weight="balanced", seed=0):
+def bow(
+    train_df, test_df, ngram_range=(1, 1), min_df=2, class_weight="balanced", seed=0
+):
     """
     Bag-of-words counts + logistic regression. Returns test predictions.
     Returns a list of predictions for the test set.

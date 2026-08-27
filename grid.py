@@ -3,7 +3,7 @@ import os
 import polars as pl
 
 from config import SHAH_PLM, SHAH_SEEDS
-from data.twd.loader import load
+from data.loader_twd_labelled import load_splits
 from models.plm_finetune import finetune
 from results import save_result
 
@@ -15,8 +15,15 @@ LEARNING_RATES = (2e-5, 1e-5, 5e-6)
 BATCH_SIZES = (32, 16, 8)
 
 COLUMNS = [
-    "model", "seed", "lr", "batch_size", "epochs",
-    "val_ce", "val_acc", "val_f1", "val_macro_f1",
+    "model",
+    "seed",
+    "lr",
+    "batch_size",
+    "epochs",
+    "val_ce",
+    "val_acc",
+    "val_f1",
+    "val_macro_f1",
 ]
 
 
@@ -56,7 +63,7 @@ def grid_search(
     for name in models:
         cfg = SHAH_PLM[name]
         for seed in seeds:
-            train, _ = load("benchmark", seed=seed)  # test deliberately unused
+            train, _ = load_splits("benchmark", seed=seed)  # test deliberately unused
             for batch_size in batch_sizes:
                 for lr in learning_rates:
                     if (name, seed, lr, batch_size) in done:

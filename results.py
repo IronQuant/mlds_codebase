@@ -3,7 +3,11 @@ from pathlib import Path
 
 
 def save_result(path, **row):
-    """Append one row to a results CSV. Header written on first call."""
+    """
+    Append one row to a results CSV. Header written on first call.
+    Columns come from the keys of the first call against a fresh file, so the
+    grid and the results CSVs can carry different schemas.
+    """
     path = Path(path)
     new = not path.exists()
     with open(path, "a", newline="") as f:
@@ -13,21 +17,11 @@ def save_result(path, **row):
         w.writerow(row)
 
 
-def save_preds(path, preds, true, **keys):
-    """Append one row per prediction. LLM preds can't be regenerated for free."""
-    path = Path(path)
-    new = not path.exists()
-    fields = [*keys, "idx", "true", "pred"]
-    with open(path, "a", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fields)
-        if new:
-            w.writeheader()
-        for i, (t, p) in enumerate(zip(true, preds)):
-            w.writerow({**keys, "idx": i, "true": t, "pred": p})
-
-
 def already_done(path, force=False, **keys):
-    """True if a row matching `keys` is already in the CSV. force=True always False."""
+    """
+    True if a row matching `keys` is already in the CSV.
+    force=True always return False.
+    """
     path = Path(path)
     if force or not path.exists():
         return False

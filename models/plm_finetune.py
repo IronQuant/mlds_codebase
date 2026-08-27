@@ -213,9 +213,7 @@ def finetune(
             collate_fn=collate,
         )
         t_ce, t_acc, t_f1, t_mf1 = _evaluate(model, test_dl, device, class_w)
-        metrics.update(
-            test_ce=t_ce, test_acc=t_acc, test_f1=t_f1, test_macro_f1=t_mf1
-        )
+        metrics.update(test_ce=t_ce, test_acc=t_acc, test_f1=t_f1, test_macro_f1=t_mf1)
 
     if save_dir is not None:
         Path(save_dir).mkdir(parents=True, exist_ok=True)

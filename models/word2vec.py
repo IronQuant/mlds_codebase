@@ -26,7 +26,7 @@ def _embed(sentences, kv):
 
 def word2vec(train_df, test_df, class_weight="balanced", seed=0):
     """
-    Mean-pooled word2vec vectors + logistic regression. 
+    Mean-pooled word2vec vectors + logistic regression.
     Returns a list of predictions for the test set.
     """
     kv = _vectors()
