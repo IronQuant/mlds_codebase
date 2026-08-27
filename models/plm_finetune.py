@@ -14,15 +14,35 @@ from transformers import (
 
 
 def _load_model(model_name, device):
-    # fp32 explicitly: some checkpoints (deberta-v3) declare fp16 and newer
-    # transformers honors it -- half precision NaNs deberta and breaks the
-    # recipe's stated fp32
+    """
+    Load a pre-trained HuggingFace transformer model for sequence classification.
+    
+    Args:
+        model_name: The name of the pre-trained model to load.
+        device: The device to load the model onto (e.g., "cpu" or "cuda").
+    Returns:
+        The loaded model on the specified device.    
+    """
     return AutoModelForSequenceClassification.from_pretrained(
         model_name, num_labels=3, torch_dtype=torch.float32
     ).to(device)
 
 
 def _make_examples(tok, df, max_len):
+    """
+    Convert a frame of sentences/labels into a list of dicts 
+    suitable for a HuggingFace DataLoader.
+    
+    Args:
+        tok: The tokenizer to use.
+        df: A DataFrame with "sentence" and "label" columns.
+        max_len: The maximum sequence length.
+
+    Returns:
+        A list of dicts with keys "input_ids", "attention_mask", and "labels".
+    """
+
+
     # "Inflation pressures have eased."  (dovish)
     #   -> ['[CLS]', 'inflation', 'pressures', 'have', 'eased', '.', '[SEP]']
     #   -> {'input_ids':      [101, 14200, 15399, 2031, 10987, 1012, 102],
@@ -30,11 +50,9 @@ def _make_examples(tok, df, max_len):
     #       'labels':         0}
     #
     # no padding here -- the collator pads each batch to its own longest sequence.
-    # padded to 10, where 0 = [PAD] and mask 0 = ignore:
-    #      {'input_ids':      [101, 14200, 15399, 2031, 10987, 1012, 102, 0, 0, 0],
-    #       'attention_mask': [1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-    #       'labels':         0}
+
     enc = tok(df["sentence"].to_list(), truncation=True, max_length=max_len)
+
     return [
         {"input_ids": ids, "attention_mask": mask, "labels": lab}
         for ids, mask, lab in zip(
@@ -44,18 +62,40 @@ def _make_examples(tok, df, max_len):
 
 
 def _evaluate(model, dl, device, class_w=None):
-    """Return (cross_entropy, accuracy, weighted_f1, macro_f1) over a dataloader.
-
-    class_w weights the reported CE to match the weighted training objective
-    (so the printed loss tracks what we optimise); None gives plain CE.
     """
-    model.eval()
+    Evaluate a model on a dataloader.
+
+    Args:
+        model: The model to evaluate.
+        dl: The dataloader.
+        device: The device to run evaluation on.
+        class_w: Optional class weights for the cross-entropy loss.
+
+    Returns:
+        A tuple (cross_entropy, accuracy, weighted_f1, macro_f1).
+    """
+    model.eval() # flip model to eval mode (no dropout, etc.)
+
+    # ce_sum: total CE loss, 
+    # correct: number of correct predictions,
+    # n: total number of samples,
+    # yp: predicted labels,
+    # yt: true labels
+
     ce_sum, correct, n, yp, yt = 0.0, 0, 0, [], []
     with torch.no_grad():
         for batch in dl:
+
+            # true labels for this batch
             labels = batch["labels"]
+
+            # move everything to the correct device
             batch = {k: v.to(device) for k, v in batch.items()}
+
+            # run the model and get logits
             out = model(**batch)
+
+            # compute CE Loss
             ce = F.cross_entropy(out.logits, batch["labels"], weight=class_w)
             ce_sum += ce.item() * labels.size(0)
             preds = out.logits.argmax(1).cpu()
@@ -80,7 +120,6 @@ def finetune(
     max_epochs=100,
     patience=7,
     val_frac=0.2,
-    val_df=None,
     seed=0,
     test_df=None,
     save_dir=None,
@@ -91,7 +130,7 @@ def finetune(
 
     Returns (model, tokenizer, metrics).
 
-    metrics is a dict of best val metrics:
+    metrics is a dict of best validation metrics:
     {val_ce, val_acc, val_f1, val_macro_f1}.
 
     If test_df is given, the BEST-MACRO checkpoint is scored on it and
@@ -100,36 +139,24 @@ def finetune(
     If save_dir is given, the model (best-macro checkpoint) + tokenizer are
     written there.
 
-    If val_df is given, it is used as the validation set verbatim and no split
-    is taken from train_df -- needed when train_df mixes corpora and early
-    stopping must track the target distribution only.
-
-    From Shah: the 80/20 within-train validation split and the lr/batch grid.
-    Everything else is ours -- the paper specifies no early stopping, optimizer,
-    max_len, epoch count, or checkpoint policy for the PLMs, so AdamW, max_len
-    256, class-weighted cross-entropy, restoring the best-macro checkpoint, and
-    the macro-F1 patience-7 rule (min-delta 0) are our choices and must be
-    reported as such.
     """
 
+    # Load the tokenizer from model_name
     tok = AutoTokenizer.from_pretrained(model_name)
 
-    # Convert the training DataFrame into a list of examples
+    # Convert the training DataFrame into encoded examples
     examples = _make_examples(tok, train_df, max_len)
 
-    # seed right before model init + split
+    # set seeds for reproducibility
     torch.manual_seed(seed)
     np.random.seed(seed)
 
     # load the actual model
     model = _load_model(model_name, device)
 
-    if val_df is not None:
-        train_ds, val_ds = examples, _make_examples(tok, val_df, max_len)
-    else:
-        # split the examples into training and validation sets
-        n_val = int(len(examples) * val_frac)
-        train_ds, val_ds = random_split(examples, [len(examples) - n_val, n_val])
+    # split the examples into training and validation sets
+    n_val = int(len(examples) * val_frac)
+    train_ds, val_ds = random_split(examples, [len(examples) - n_val, n_val])
 
     # a batch must be one rectangular tensor, so rows are padded to equal length.
     # pad per batch (to its own longest, often ~30 tokens) rather than to max_len=256
