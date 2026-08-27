@@ -109,6 +109,7 @@ def fetch_documents():
     for k, (nf, ns) in stats.items():
         print(f"  {k}: {nf} docs -> {ns:,} sentences")
     df = pd.DataFrame(rows, columns=["sentence", "doc_type", "meeting_date"])
-    df["sentence"] = df["sentence"].map(normalize)
+    # repair mojibake but keep the casing: the benchmark we fine-tune on is cased
+    df["sentence"] = df["sentence"].map(lambda x: normalize(x, lower=False))
     df["key"] = df["sentence"].map(dedup_key)
     return df.drop_duplicates("key")

@@ -12,6 +12,7 @@ Here, we do two additional steps:
 
 import pandas as pd
 
+from data.loader_twd_filtered import fetch_filtered
 from data.loader_twd_labelled import load_splits
 from data.loader_twd_unlabelled import fetch_documents
 from data.loader_wcb_labelled import fetch_annotated
@@ -67,3 +68,27 @@ def build_pools(verbose=True):
     if verbose:
         print(f"fomc pool: {len(twd):,} | global pool: {len(glob):,}")
     return twd, glob
+
+
+def build_tapt_pool(seed, verbose=True):
+    """
+    Return the TAPT pool for one seed: the filtered corpus minus that seed's test split.
+
+    Curated-TAPT (Gururangan et al. 2020, 5.1) pretrains on the pool the labelled
+    set was sampled from. Train stays in, since TAPT trains on the task's own
+    training data by design; only test is held out.
+
+    Args:
+        seed: Which published split defines the held-out test set.
+        verbose: If True, print the counts.
+
+    Returns:
+        A pandas DataFrame of sentences, with the dedup key dropped.
+    """
+    df = fetch_filtered()
+    _, test = load_splits("benchmark", seed=seed)
+    keys = set(pd.Series(test["sentence"].to_list()).map(normalize).map(dedup_key))
+    clean = df[~df["key"].isin(keys)]
+    if verbose:
+        print(f"tapt pool seed {seed}: {len(df):,} -> {len(clean):,}")
+    return clean.drop(columns="key")

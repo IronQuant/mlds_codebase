@@ -26,6 +26,7 @@ def fetch_sentences():
     )
     # the Fed's own text belongs to the TWD pool, not the non-US increment
     df = df[~df["bank"].isin(["federal_reserve_system", "fomc"])].copy()
-    df["sentence"] = df["sentence"].astype(str).map(normalize)
+    # repair mojibake but keep the casing: the benchmark we fine-tune on is cased
+    df["sentence"] = df["sentence"].astype(str).map(lambda x: normalize(x, lower=False))
     df["key"] = df["sentence"].map(dedup_key)
     return df.drop_duplicates("key")

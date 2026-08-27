@@ -3,7 +3,7 @@ import unicodedata
 import ftfy
 
 
-def normalize(s):
+def normalize(s, lower=True):
     """
     Clean a raw sentence into the uniform form stored as `sentence`.
     Repair mojibake, NFKC-normalise, drop U+FFFD junk, strip wrapping quotes,
@@ -33,7 +33,8 @@ def normalize(s):
     s = s.strip().strip("\"'")
 
     # input: "The Committee Decided"  ->  "the committee decided"
-    s = s.lower()
+    if lower:
+        s = s.lower()
 
     # input: "raise  rates\n"  ->  "raise rates"
     # \s matches any whitespace (space, \t, \n, \r)
