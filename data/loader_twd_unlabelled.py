@@ -22,7 +22,9 @@ import pandas as pd
 
 from utils.corpus_helpers import is_junk, rejoin_hyphens
 
-TARBALL = "https://github.com/gtfintechlab/fomc-hawkish-dovish/archive/refs/heads/main.tar.gz"
+TARBALL = (
+    "https://github.com/gtfintechlab/fomc-hawkish-dovish/archive/refs/heads/main.tar.gz"
+)
 PREFIX = "fomc-hawkish-dovish-main/data/raw_data/"
 
 
@@ -64,7 +66,10 @@ def fetch_documents():
     _download_raw(RAW)
     rows, stats = [], {}
     # minutes and speeches are whole documents; press conferences ship sentence-level
-    for dt, sub in [("meeting_minutes", "meeting_minutes"), ("speech", "speech/text/all")]:
+    for dt, sub in [
+        ("meeting_minutes", "meeting_minutes"),
+        ("speech", "speech/text/all"),
+    ]:
         files = glob.glob(str(RAW / sub / "*.txt"))
         before = len(rows)
         for f in files:

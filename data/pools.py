@@ -56,7 +56,9 @@ def build_pools(verbose=True):
     if verbose:
         print("labelled key set:", len(keys))
         for name, df in [("twd", twd), ("wcb", wcb)]:
-            print(f"  {name}: {int(df['key'].isin(keys).sum())} contaminated rows removed")
+            print(
+                f"  {name}: {int(df['key'].isin(keys).sum())} contaminated rows removed"
+            )
     twd = twd[~twd["key"].isin(keys)].drop(columns="key")
     wcb = wcb[~wcb["key"].isin(keys)].drop(columns="key")
 

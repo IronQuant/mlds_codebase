@@ -25,7 +25,7 @@ def normalize(s):
     # input: "mee<?>ng policy commi<?>ee"  ->  "mee ng policy commi ee"
     s = s.replace("�", " ")
 
-    # input: "the risks to the outlook... as balanced"  
+    # input: "the risks to the outlook... as balanced"
     # ->  "the risks to the outlook as balanced"
     s = s.replace("...", " ")
 
@@ -36,7 +36,7 @@ def normalize(s):
     s = s.lower()
 
     # input: "raise  rates\n"  ->  "raise rates"
-    # \s matches any whitespace (space, \t, \n, \r) 
+    # \s matches any whitespace (space, \t, \n, \r)
     # collapses each run to a single space
     s = re.sub(r"\s+", " ", s).strip()
     return s
