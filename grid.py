@@ -7,10 +7,6 @@ from data.loader_twd_labelled import load_splits
 from models.plm_finetune import finetune
 from results import save_result
 
-
-# refined grid around the stable zone: Shah's decade-spaced grid had 1e-4 (collapse),
-# 1e-7 (never learns), 1e-6 (trails), and batch 4 (slow/spiky). Centre tightly on the
-# 1e-5 winner, keep batch 8/16/32. 3 x 3 = 9 configs (was 16).
 LEARNING_RATES = (2e-5, 1e-5, 5e-6)
 BATCH_SIZES = (32, 16, 8)
 
@@ -34,24 +30,33 @@ def grid_search(
     learning_rates=LEARNING_RATES,
     batch_sizes=BATCH_SIZES,
     device="cuda",
-    on_save=None,
 ):
-    """Search lr x batch per model, recording validation metrics only.
+    """
+    
+    Search lr x batch per model, recording validation metrics only.
 
     Winners are chosen by mean val_macro_f1 across seeds (see winners()); val_f1
     (weighted) is kept alongside only for comparison with Shah's Table 5.
 
-    No test_df is passed to finetune, so hyperparameter selection never sees the
-    test set. Appends one row to out_path after every config and skips whatever
-    is already there, so a disconnect costs one run.
+    Args:
+        out_path: Path to the CSV file where results will be saved.
+        models: List of model names to grid search over.
+        seeds: List of random seeds for reproducibility.
+        learning_rates: List of learning rates to try.
+        batch_sizes: List of batch sizes to try.
+        device: Device to run the model on (e.g., "cpu" or "cuda").
 
-    out_path should live on Drive (config.RESULTS_DIR), not in the git clone --
-    the row is appended in place, so nothing has to be pushed and no second
-    writer can clobber rows it never read.
-
-    on_save, if given, is called with the row dict just appended.
-
-    Returns a polars DataFrame of all rows, resumed ones included.
+    Returns:
+        A polars DataFrame containing the grid search results with columns:
+            - model: The name of the model.
+            - seed: The random seed used for this run.
+            - lr: The learning rate used for this run.
+            - batch_size: The batch size used for this run.
+            - epochs: The number of epochs trained before early stopping.
+            - val_ce: Validation cross-entropy loss.
+            - val_acc: Validation accuracy.
+            - val_f1: Validation weighted F1 score.
+            - val_macro_f1: Validation macro F1 score.
     """
     rows, done = [], set()
     if os.path.exists(out_path):
@@ -63,7 +68,7 @@ def grid_search(
     for name in models:
         cfg = SHAH_PLM[name]
         for seed in seeds:
-            train, _ = load_splits("benchmark", seed=seed)  # test deliberately unused
+            train, _ = load_splits("benchmark", seed=seed)
             for batch_size in batch_sizes:
                 for lr in learning_rates:
                     if (name, seed, lr, batch_size) in done:
@@ -97,20 +102,31 @@ def grid_search(
                         }
                     )
                     # append after every config -- a disconnect loses one run.
-                    # append, never rewrite: rewriting the whole file lets a second
-                    # writer clobber rows it never saw.
                     save_result(out_path, **{c: rows[-1][c] for c in COLUMNS})
                     print(
                         f"    epochs={m['epochs']}  "
                         f"val_macro_f1={m['val_macro_f1']:.4f}  saved"
                     )
-                    if on_save is not None:
-                        on_save(rows[-1])
     return pl.DataFrame(rows).select(COLUMNS)
 
 
 def winners(grid_df):
-    """Best (lr, batch) per model by mean validation macro-F1 across seeds."""
+    """
+    Best (lr, batch) per model by mean validation macro-F1 across seeds.
+    
+    Args:
+        grid_df: A polars DataFrame containing the grid search results with columns:
+
+    Returns:
+        A polars DataFrame containing the best (lr, batch) configuration for each model
+            - model: The name of the model.
+            - lr: The learning rate of the best configuration.
+            - batch_size: The batch size of the best configuration.
+            - mean_val_macro_f1: The mean validation macro-F1 score across seeds.
+            - std_val_macro_f1: The standard deviation of the validation macro-F1 score across seeds.
+            - mean_epochs: The mean number of epochs trained before early stopping across seeds.
+            - n: The number of seeds used for averaging.
+    """
     return (
         grid_df.group_by(["model", "lr", "batch_size"])
         .agg(

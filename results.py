@@ -7,6 +7,10 @@ def save_result(path, **row):
     Append one row to a results CSV. Header written on first call.
     Columns come from the keys of the first call against a fresh file, so the
     grid and the results CSVs can carry different schemas.
+
+    Args:
+        path: Path to the CSV file.
+        **row: Key-value pairs representing the row to append.
     """
     path = Path(path)
     new = not path.exists()
@@ -21,6 +25,13 @@ def already_done(path, force=False, **keys):
     """
     True if a row matching `keys` is already in the CSV.
     force=True always return False.
+
+    Args:
+        path: Path to the CSV file.
+        force: If True, always return False.
+        **keys: Key-value pairs to match against existing rows.
+    Returns:
+        True if a row matching `keys` is already in the CSV, False otherwise.
     """
     path = Path(path)
     if force or not path.exists():
