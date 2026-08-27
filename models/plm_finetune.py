@@ -28,7 +28,7 @@ def _load_model(model_name, device):
     ).to(device)
 
 
-def _make_examples(tok, df, max_len):
+def _encode(tok, df, max_len):
     """
     Convert a frame of sentences/labels into a list of dicts 
     suitable for a HuggingFace DataLoader.
@@ -111,6 +111,59 @@ def _evaluate(model, dl, device, class_w=None):
     )
 
 
+def _make_loaders(tok, train_df, max_len, batch_size, val_frac):
+    """Split the encoded rows and wrap each half in a padding DataLoader."""
+    # Tokenise the training frame into rows the DataLoader can batch
+    encoded = _encode(tok, train_df, max_len)
+
+    # Train / Validation Split of the Encoded Data
+    # Store in Torch Dataset objects
+    n_val = int(len(encoded) * val_frac)
+    train_ds, val_ds = random_split(encoded, [len(encoded) - n_val, n_val])
+
+    # create the Torch Dataloaders
+    collate = DataCollatorWithPadding(tok)
+    train_dl = DataLoader(
+        train_ds, batch_size=batch_size, shuffle=True, collate_fn=collate
+    )
+    val_dl = DataLoader(val_ds, batch_size=batch_size, shuffle=True, collate_fn=collate)
+    return train_dl, val_dl
+
+
+def _class_weights(train_df, device):
+    """Inverse-frequency weights, so 49% neutral cannot dominate the gradient."""
+    # Setup inverse class weights for weighted CE loss
+    counts = torch.bincount(
+        torch.tensor(train_df["label"].to_list()), minlength=3
+    ).float()
+    return (counts.sum() / (3 * counts)).to(device)
+
+
+def _train_epoch(model, train_dl, opt, class_w, device):
+    """One pass over the training data."""
+    model.train()
+    for batch in train_dl:
+        batch = {k: v.to(device) for k, v in batch.items()}
+        opt.zero_grad()
+        out = model(**batch)
+        # weighted CE from logits, not the model's built-in unweighted out.loss
+        loss = F.cross_entropy(out.logits, batch["labels"], weight=class_w)
+        loss.backward()
+        opt.step()
+
+
+def _score(model, tok, df, max_len, batch_size, class_w, device, prefix):
+    """Score a frame with the current weights, keys prefixed e.g. test_macro_f1."""
+    dl = DataLoader(
+        _encode(tok, df, max_len),
+        batch_size=batch_size,
+        collate_fn=DataCollatorWithPadding(tok),
+    )
+    ce, acc, f1, mf1 = _evaluate(model, dl, device, class_w)
+    return {f"{prefix}_ce": ce, f"{prefix}_acc": acc,
+            f"{prefix}_f1": f1, f"{prefix}_macro_f1": mf1}
+
+
 def finetune(
     train_df,
     model_name="bert-base-uncased",
@@ -126,7 +179,8 @@ def finetune(
     device="cpu",
     verbose=False,
 ):
-    """Fine-tune `model_name` on train_df.
+    """
+    Fine-tune `model_name` on train_df.
 
     Returns (model, tokenizer, metrics).
 
@@ -139,13 +193,30 @@ def finetune(
     If save_dir is given, the model (best-macro checkpoint) + tokenizer are
     written there.
 
+    Args:
+        train_df: A pandas DataFrame containing training sentences and labels.
+        model_name: Name of the HuggingFace transformer model.
+        lr: Learning rate for the optimizer.
+        batch_size: Batch size for training and evaluation.
+        max_len: Maximum token length for the tokenizer.
+        max_epochs: Maximum number of epochs to train.
+        patience: Number of epochs to wait for improvement before early stopping.
+        val_frac: Fraction of training data to use for validation.
+        seed: Random seed for reproducibility.
+        test_df: Optional pandas DataFrame containing test sentences and labels.
+        save_dir: Optional directory to save the best model and tokenizer.
+        device: Device to run the model on (e.g., "cpu" or "cuda").
+        verbose: If True, print progress messages.
+    Returns:
+        A tuple (model, tokenizer, metrics) where:
+            - model: The fine-tuned HuggingFace model.
+            - tokenizer: The tokenizer corresponding to the model.
+            - metrics: A dictionary containing validation and test metrics.
+
     """
 
     # Load the tokenizer from model_name
     tok = AutoTokenizer.from_pretrained(model_name)
-
-    # Convert the training DataFrame into encoded examples
-    examples = _make_examples(tok, train_df, max_len)
 
     # set seeds for reproducibility
     torch.manual_seed(seed)
@@ -154,27 +225,12 @@ def finetune(
     # load the actual model
     model = _load_model(model_name, device)
 
-    # Train / Valid Split
-    n_val = int(len(examples) * val_frac)
-    train_ds, val_ds = random_split(examples, [len(examples) - n_val, n_val])
+    # create the training and validation DataLoaders
+    train_dl, val_dl = _make_loaders(tok, train_df, max_len, batch_size, val_frac)
 
-    # pad per batch (to its own longest, often ~30 tokens) 
-    collate = DataCollatorWithPadding(tok)
-
-    # create the Torch Dataloaders
-    train_dl = DataLoader(
-        train_ds, batch_size=batch_size, shuffle=True, collate_fn=collate
-    )
-    val_dl = DataLoader(val_ds, batch_size=batch_size, shuffle=True, collate_fn=collate)
-
-    # setup optimizer
+    # setup optimizer qand class weights for weighted CE loss
     opt = torch.optim.AdamW(model.parameters(), lr=lr)
-
-    # Setup inverse class weights for weighted CE loss
-    counts = torch.bincount(
-        torch.tensor(train_df["label"].to_list()), minlength=3
-    ).float()
-    class_w = (counts.sum() / (3 * counts)).to(device)
+    class_w = _class_weights(train_df, device)
 
     best_macro, best_state, best_metrics = float("-inf"), None, None
     es_count = 0
@@ -187,15 +243,7 @@ def finetune(
         t0 = time.perf_counter()
 
         # train
-        model.train()
-        for batch in train_dl:
-            batch = {k: v.to(device) for k, v in batch.items()}
-            opt.zero_grad()
-            out = model(**batch)
-            # weighted CE from logits, not the model's built-in unweighted out.loss
-            loss = F.cross_entropy(out.logits, batch["labels"], weight=class_w)
-            loss.backward()
-            opt.step()
+        _train_epoch(model, train_dl, opt, class_w, device)
 
         # validate
         ce, acc, f1, mf1 = _evaluate(model, val_dl, device, class_w)
@@ -213,9 +261,7 @@ def finetune(
                 f"    epoch {epoch:>2}: val CE={ce:.4f}  acc={acc:.4f}  wF1={f1:.4f}  mF1={mf1:.4f}  es={es_count}  {dt:.1f}s"
             )
 
-    # restore the best-macro checkpoint, so val_macro_f1, the test score, and any
-    # later scoring all describe the same model the grid selected on -- not the
-    # last, possibly overfit, epoch
+    # restore the best-macro checkpoint, so val_macro_f1
     if best_state is not None:
         model.load_state_dict(best_state)
 
@@ -229,13 +275,9 @@ def finetune(
     }
 
     if test_df is not None:
-        test_dl = DataLoader(
-            _make_examples(tok, test_df, max_len),
-            batch_size=batch_size,
-            collate_fn=collate,
+        metrics.update(
+            _score(model, tok, test_df, max_len, batch_size, class_w, device, "test")
         )
-        t_ce, t_acc, t_f1, t_mf1 = _evaluate(model, test_dl, device, class_w)
-        metrics.update(test_ce=t_ce, test_acc=t_acc, test_f1=t_f1, test_macro_f1=t_mf1)
 
     if save_dir is not None:
         Path(save_dir).mkdir(parents=True, exist_ok=True)
