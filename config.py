@@ -4,7 +4,11 @@ from pathlib import Path
 # RESULTS Paths
 # -----------------------------------------------------------------------------------
 # Results directory, use google drive if avail, otherwise use local results dir
+
+# Parent Directory
 _ROOT = Path(__file__).parent
+
+# Check for Google Drive or local results directory
 for _cand in (Path("/content/drive/MyDrive/thesis"), Path("G:/My Drive/thesis")):
     if _cand.is_dir():
         RESULTS_DIR = _cand
@@ -16,17 +20,15 @@ else:
 # -----------------------------------------------------------------------------------
 # Mappings and Seeds
 # -----------------------------------------------------------------------------------
-# integer label mapping for hawkish/dovish/neutral classification
 NAME2INT = {"dovish": 0, "hawkish": 1, "neutral": 2}
 INT2NAME = {0: "dovish", 1: "hawkish", 2: "neutral"}
 
-# Random seeds used for each experiment
 # These are the seeds from Shah et al. (2023)
 SHAH_SEEDS = (5768, 78516, 944601)
 
 
 # -----------------------------------------------------------------------------------
-# Winning Configurations
+# Winning Configurations (result from hyperparameter search)
 # -----------------------------------------------------------------------------------
 SHAH_PLM = {
     "bert-base-uncased": dict(model_name="bert-base-uncased", lr=2e-5, batch_size=8),

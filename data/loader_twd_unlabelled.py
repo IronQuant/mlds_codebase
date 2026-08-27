@@ -1,9 +1,8 @@
-"""Acquire the unfiltered TWD sentence corpus.
-
+"""
+Acquire the unfiltered TWD sentence corpus.
 Shah et al. release whole documents, not sentences, so the ~172k-sentence corpus
 described in the paper has to be rebuilt by sentence-splitting the raw documents
-in the gtfintechlab/fomc-hawkish-dovish GitHub repo. NLTK's boundary decisions
-differ slightly from theirs, which is why this yields 179,638 rather than 172,454.
+in the gtfintechlab/fomc-hawkish-dovish GitHub repo. 
 """
 
 import glob
@@ -20,7 +19,7 @@ import ftfy
 import nltk
 import pandas as pd
 
-from utils.corpus_helpers import is_junk, rejoin_hyphens
+from utils.corpus_helpers import dedup_key, is_junk, normalize, rejoin_hyphens
 
 TARBALL = (
     "https://github.com/gtfintechlab/fomc-hawkish-dovish/archive/refs/heads/main.tar.gz"
@@ -29,8 +28,15 @@ PREFIX = "fomc-hawkish-dovish-main/data/raw_data/"
 
 
 def _download_raw(RAW):
-    """Download and extract the raw_data tree from the TDW repo."""
-    RAW.mkdir(parents=True, exist_ok=True)
+    """
+    Download and extract the raw_data tree from the TDW repo.
+    
+    Args: 
+        RAW: Path to a temporary directory in which to extract the files.
+    
+    Returns:
+        None. The raw_data tree is extracted to RAW.
+    """
     print("downloading TDW repo tarball (~61MB)...", flush=True)
     buf = io.BytesIO(urllib.request.urlopen(TARBALL).read())
     with tarfile.open(fileobj=buf, mode="r:gz") as tf:
@@ -56,7 +62,20 @@ def _keep(s, doc_type, date, rows):
 
 
 def fetch_documents():
-    """Return a DataFrame of (sentence, doc_type, meeting_date). 179,638 rows."""
+    """
+    Return a DataFrame of (sentence, doc_type, meeting_date).
+    Downloaded from the gtfintechlab/fomc-hawkish-dovish GitHub repo
+    We (1) fix_text to repair mojibake, (2) sentence-split the minutes and speeches, 
+    and (3) drop junk lines, including PDF headers, tables, web chrome, and fragments,
+    and (4) rejoin hyphenated words split across lines.
+    The press conference CSVs ship sentence-level, so they are just cleaned.
+    
+    Returns:
+        A pandas DataFrame with columns:
+            - sentence: The raw sentence text.
+            - doc_type: "meeting_minutes", "speech", or "press_conference".
+            - meeting_date: The date of the meeting from which the sentence was drawn.  
+    """
     nltk.download("punkt", quiet=True)
     nltk.download("punkt_tab", quiet=True)
     from nltk.tokenize import sent_tokenize
@@ -65,7 +84,8 @@ def fetch_documents():
     RAW = Path(tmp.name)
     _download_raw(RAW)
     rows, stats = [], {}
-    # minutes and speeches are whole documents; press conferences ship sentence-level
+    # minutes and speeches are whole documents; 
+    # press conferences ship sentence-level
     for dt, sub in [
         ("meeting_minutes", "meeting_minutes"),
         ("speech", "speech/text/all"),
@@ -87,4 +107,7 @@ def fetch_documents():
 
     for k, (nf, ns) in stats.items():
         print(f"  {k}: {nf} docs -> {ns:,} sentences")
-    return pd.DataFrame(rows, columns=["sentence", "doc_type", "meeting_date"])
+    df = pd.DataFrame(rows, columns=["sentence", "doc_type", "meeting_date"])
+    df["sentence"] = df["sentence"].map(normalize)
+    df["key"] = df["sentence"].map(dedup_key)
+    return df.drop_duplicates("key")

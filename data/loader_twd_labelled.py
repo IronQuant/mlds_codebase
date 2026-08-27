@@ -1,9 +1,10 @@
-"""Acquire the Shah et al. (2023) labelled benchmark splits.
-
-Fetched from the gtfintechlab/fomc-hawkish-dovish GitHub repo. HuggingFace
-carries only seed 944601, so GitHub is the only source for all three published
-splits. fetch_splits() returns all six splits stacked; load_splits() slices one seed
-or the chronological partition out of them. Nothing is stored.
+"""
+Acquire the Shah et al. (2023) labelled benchmark splits.
+GitHub is the only source for all three published
+splits. Fetch_splits() returns all six splits stacked 
+Load_splits() slices one seed into train and test frames
+(or the chronological partition out of them) 
+Nothing is stored.
 """
 
 import io
@@ -14,7 +15,7 @@ import polars as pl
 from config import SHAH_SEEDS as SEEDS
 
 RAW = "https://raw.githubusercontent.com/gtfintechlab/fomc-hawkish-dovish/main/training_data/test-and-training"
-# upstream carries a lab-manual- prefix on every file
+
 URL = {
     "train": RAW + "/training_data/lab-manual-split-combine-train-{seed}.xlsx",
     "test": RAW + "/test_data/lab-manual-split-combine-test-{seed}.xlsx",
@@ -22,18 +23,41 @@ URL = {
 
 
 def _read(split, seed):
+    """
+    Read one of the six published splits from GitHub.
+    Six = 3 seeds x 2 splits (train/test)
+    
+    Args:
+        split: "train" or "test".
+        seed: One of SHAH_SEEDS.
+    Returns:
+        A polars DataFrame with columns:
+            - orig_index: The row number in the original Excel file.
+            - sentence: The raw sentence text.
+            - label: "hawkish" or "dovish".
+            - year: The year of the FOMC meeting from which the sentence was drawn.
+    """
+
     with urllib.request.urlopen(URL[split].format(seed=seed)) as r:
         return pl.read_excel(io.BytesIO(r.read()))
 
 
 def fetch_splits(verbose=True):
-    """Return all six published splits stacked, with seed and split columns.
+    """
+    Return all six published splits stacked, with seed and split columns.
+    2,480 sentences x 3 seeds = 7,440 rows. 
+    
+    Args:
+        verbose: Print row counts for each seed/split.
+    Returns:
+        A polars DataFrame with columns:
+            - orig_index: The row number in the original Excel file.
+            - sentence: The raw sentence text.
+            - label: "hawkish" or "dovish".
+            - year: The year of the FOMC meeting from which the sentence was drawn.
+            - seed: Which of the three published splits this row belongs to.
+            - split: "train" or "test".
 
-    2,480 sentences x 3 seeds = 7,440 rows. The seeds are three partitions of
-    one identical set, so this repeats each sentence three times. Storing one
-    row per sentence is not possible: no column is unique (2,480 rows, 1,070
-    distinct orig_index), and a duplicated sentence can be train under one seed
-    and test under another, so a per-sentence split label has no meaning.
     """
     frames = []
     for seed in SEEDS:
@@ -63,9 +87,6 @@ def load_splits(dataset="benchmark", seed=944601, cutoff=2019):
 
     Returns:
         A (train, test) tuple of polars DataFrames.
-
-    Raises:
-        ValueError: If seed is not one of SHAH_SEEDS, or dataset is unknown.
     """
     df = fetch_splits(verbose=False)
 
