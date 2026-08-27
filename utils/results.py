@@ -1,6 +1,10 @@
 import csv
 from pathlib import Path
 
+from sklearn.metrics import f1_score
+
+from data.loader_twd_labelled import load_splits
+
 
 def save_result(path, **row):
     """
@@ -40,3 +44,40 @@ def already_done(path, force=False, **keys):
         return any(
             all(r.get(k) == str(v) for k, v in keys.items()) for r in csv.DictReader(f)
         )
+
+
+def run_seeds(out, model, predict, seeds, corpus, split, force=False):
+    """Score `predict` on every seed and append one results row per seed.
+
+    Every untrained-at-call-time model shares this shape: load the split, get
+    predictions, score, save. Only fine-tuning differs, because it reports epochs
+    and reads its metrics straight out of finetune().
+
+    Args:
+        out: Path to the results CSV.
+        model: Row label, e.g. "bow" or "frozen:roberta-large".
+        predict: Callable (train, test, seed) -> list of integer labels.
+        seeds: Seeds to run.
+        corpus: Row label for the corpus, e.g. "twd".
+        split: Dataset name passed to load_splits.
+        force: If True, rerun and append even when a row already exists.
+    """
+    for seed in seeds:
+        if already_done(out, force=force, model=model, corpus=corpus, seed=seed):
+            print(f"{model} seed {seed}: already done, skipping")
+            continue
+
+        train, test = load_splits(split, seed=seed)
+        pred = predict(train, test, seed)
+        true = test["label"].to_list()
+
+        save_result(
+            out,
+            model=model,
+            corpus=corpus,
+            seed=seed,
+            epochs="",  # no training
+            weighted_f1=round(f1_score(true, pred, average="weighted"), 4),
+            macro_f1=round(f1_score(true, pred, average="macro"), 4),
+        )
+        print(f"{model} seed {seed}: saved")
