@@ -4,11 +4,27 @@ from transformers import AutoModel, AutoTokenizer
 
 
 def _encode(model, tok, sentences, max_len, batch_size, device):
+    """
+    Encode a list of sentences into mean-pooled vectors 
+    Using a frozen HuggingFace transformer model. 
+
+    Args:
+        model: A HuggingFace transformer model.
+        tok: A HuggingFace tokenizer.
+        sentences: List of sentence strings.
+        max_len: Maximum token length.
+        batch_size: Batch size for encoding.
+        device: Device to run the model on.
+    Returns:
+        A numpy array of shape (len(sentences), hidden_size) 
+        Containing the mean-pooled sentence vectors.
+    """
+
     vecs = []
-    # no gradients, weights never change -- the "frozen" part
+    # We need to run the forward pass to get last hidden state
     with torch.no_grad():
         for i in range(0, len(sentences), batch_size):
-            # sentence -> ~7 token ids
+            # sentence: "Inflation is rising."
             enc = tok(
                 sentences[i : i + batch_size],
                 truncation=True,
@@ -37,8 +53,23 @@ def probe(
     class_weight="balanced",
     seed=0,
 ):
-    """Mean-pooled frozen encoder + logistic regression. Returns test predictions."""
-    # encoder only -- no classification head
+    """
+    Mean-pooled frozen encoder + logistic regression. Returns test predictions.
+
+    Args:
+        train_df: A pandas DataFrame containing training sentences and labels.
+        test_df: A pandas DataFrame containing test sentences.
+        model_name: Name of the HuggingFace transformer model.
+        max_len: Maximum token length.
+        batch_size: Batch size for encoding.
+        device: Device to run the model on.
+        class_weight: Class weight for logistic regression.
+        seed: Random seed.
+    Returns:
+        A list of predicted labels for the test set.
+
+    """
+    # grab tokenizer and model from model_name, e.g. "roberta-base"
     tok = AutoTokenizer.from_pretrained(model_name)
     model = AutoModel.from_pretrained(model_name).to(device).eval()
 
