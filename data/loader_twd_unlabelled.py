@@ -1,8 +1,9 @@
 """
 Acquire the unfiltered TWD sentence corpus.
-Shah et al. release whole documents, not sentences, so the ~172k-sentence corpus
-described in the paper has to be rebuilt by sentence-splitting the raw documents
-in the gtfintechlab/fomc-hawkish-dovish GitHub repo. 
+Shah et al. release whole documents, not sentences, 
+So the ~172k-sentence corpus described in the paper has to be rebuilt 
+by sentence-splitting.
+The raw documents in the gtfintechlab/fomc-hawkish-dovish GitHub repo.
 """
 
 import glob

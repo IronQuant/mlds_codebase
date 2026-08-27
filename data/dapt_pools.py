@@ -20,7 +20,21 @@ from utils.corpus_helpers import dedup_key, normalize
 
 
 def build_pools(verbose=True):
-    """Return (fomc, global) pools as DataFrames. 164,688 and 439,414 rows."""
+    """
+    Return (fomc, global) pools as DataFrames. 
+
+    We download and clean the TWD and WCB corpora
+    We deduplicate across corpora, keeping duplicates in TWD
+    We decontaminate both corpora against every labelled sentence in both corpora
+
+    Args:
+        verbose: If True, print details in processing
+
+    Returns:
+        fomc: FOMC sentences only, from the TWD corpus
+        global: fomc plus the non-US WCB sentences, concatenated
+
+    """
     # each loader returns its own corpus already normalised and deduplicated
     twd, wcb = fetch_documents(), fetch_sentences()
     if verbose:
