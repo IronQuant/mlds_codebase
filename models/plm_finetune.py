@@ -154,33 +154,28 @@ def finetune(
     # load the actual model
     model = _load_model(model_name, device)
 
-    # split the examples into training and validation sets
+    # Train / Valid Split
     n_val = int(len(examples) * val_frac)
     train_ds, val_ds = random_split(examples, [len(examples) - n_val, n_val])
 
-    # a batch must be one rectangular tensor, so rows are padded to equal length.
-    # pad per batch (to its own longest, often ~30 tokens) rather than to max_len=256
-    # -- far less wasted compute, and attention_mask makes the result identical.
+    # pad per batch (to its own longest, often ~30 tokens) 
     collate = DataCollatorWithPadding(tok)
+
+    # create the Torch Dataloaders
     train_dl = DataLoader(
         train_ds, batch_size=batch_size, shuffle=True, collate_fn=collate
     )
     val_dl = DataLoader(val_ds, batch_size=batch_size, shuffle=True, collate_fn=collate)
+
+    # setup optimizer
     opt = torch.optim.AdamW(model.parameters(), lr=lr)
 
-    # inverse-frequency class weights: neutral is ~49%, so unweighted CE lets it
-    # dominate the gradient and collapse the model to the majority class. Weighting
-    # the training loss counters that. Reported acc/F1 stay plain; reported CE is
-    # weighted too, so the printed loss tracks the objective (see _evaluate).
+    # Setup inverse class weights for weighted CE loss
     counts = torch.bincount(
         torch.tensor(train_df["label"].to_list()), minlength=3
     ).float()
     class_w = (counts.sum() / (3 * counts)).to(device)
 
-    # patience and checkpoint both key on macro-F1, the metric we select and report
-    # on. min-delta 0: any new max counts (strict >), so the checkpoint is the true
-    # best epoch and a slow, sub-0.01-per-epoch climb is never cut off mid-ascent.
-    # best_metrics holds (ce, acc, weighted, macro) at that same epoch.
     best_macro, best_state, best_metrics = float("-inf"), None, None
     es_count = 0
     n_epochs = 0
@@ -191,7 +186,7 @@ def finetune(
         n_epochs = epoch + 1
         t0 = time.perf_counter()
 
-        # ---- train ----
+        # train
         model.train()
         for batch in train_dl:
             batch = {k: v.to(device) for k, v in batch.items()}
@@ -202,7 +197,7 @@ def finetune(
             loss.backward()
             opt.step()
 
-        # ---- validate: macro-F1 alone drives patience and the checkpoint ----
+        # validate
         ce, acc, f1, mf1 = _evaluate(model, val_dl, device, class_w)
         # strict > (min-delta 0): equal mF1 must NOT reset, or a frozen run (e.g.
         # lr=1e-7 stuck at one value) would never stop and hit max_epochs.
@@ -219,7 +214,7 @@ def finetune(
             )
 
     # restore the best-macro checkpoint, so val_macro_f1, the test score, and any
-    # later predict() all describe the same model the grid selected on -- not the
+    # later scoring all describe the same model the grid selected on -- not the
     # last, possibly overfit, epoch
     if best_state is not None:
         model.load_state_dict(best_state)
@@ -250,24 +245,3 @@ def finetune(
             print(f"    saved -> {save_dir}")
 
     return model, tok, metrics
-
-
-def predict(model, tok, test_df, max_len=256, batch_size=16, device="cpu"):
-    """Integer label predictions (0/1/2) for test_df."""
-    model.eval()
-    enc = tok(
-        test_df["sentence"].to_list(),
-        truncation=True,
-        max_length=max_len,
-        padding=True,
-        return_tensors="pt",
-    )
-    preds = []
-    with torch.no_grad():
-        for i in range(0, enc["input_ids"].size(0), batch_size):
-            logits = model(
-                input_ids=enc["input_ids"][i : i + batch_size].to(device),
-                attention_mask=enc["attention_mask"][i : i + batch_size].to(device),
-            ).logits
-            preds += logits.argmax(1).cpu().tolist()
-    return preds
