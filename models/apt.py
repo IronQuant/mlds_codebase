@@ -2,6 +2,8 @@
 Domain-adaptive pretraining (DAPT): continued MLM on unlabeled FOMC text.
 """
 
+import time
+
 import torch
 from torch.utils.data import DataLoader
 from transformers import (
@@ -89,7 +91,7 @@ def adapt(
     # Pre-training
     model.train()
     for epoch in range(epochs):
-        total, n = 0.0, 0
+        total, n, t0 = 0.0, 0, time.time()
         opt.zero_grad()
         for batch in dl:
             batch = {k: v.to(device) for k, v in batch.items()}
@@ -102,6 +104,14 @@ def adapt(
                 opt.step()
                 sched.step()
                 opt.zero_grad()
+            if verbose and n % 100 == 0:
+                rate = n / (time.time() - t0)
+                eta = (len(dl) * (epochs - epoch) - n) / rate / 60
+                print(
+                    f"    {n:,}/{len(dl):,}: mlm loss {total / n:.4f}"
+                    f" | {rate:.1f} it/s, eta {eta:.0f} min",
+                    flush=True,
+                )
         if verbose:
             print(f"    epoch {epoch}: mlm loss {total / n:.4f}", flush=True)
 
