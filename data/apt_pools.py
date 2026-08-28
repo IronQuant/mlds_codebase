@@ -12,12 +12,43 @@ Here, we do two additional steps:
 
 import pandas as pd
 
+from config import SHAH_SEEDS
 from data.loader_twd_filtered import fetch_filtered
 from data.loader_twd_labelled import load_splits
 from data.loader_twd_unlabelled import fetch_documents
 from data.loader_wcb_labelled import fetch_annotated
 from data.loader_wcb_unlabelled import fetch_sentences
 from utils.corpus_helpers import dedup_key, normalize
+
+
+EVAL_FRACTION = 0.05
+EVAL_SEED = 0
+
+
+def build_eval_set(verbose=True):
+    """
+    Return a fixed slice of the filtered corpus, held out of every adaptation arm.
+
+    Drawn from the filtered corpus so it matches the register the arms adapt on,
+    and excludes every labelled sentence so the task-adaptive arms cannot have
+    seen it either. Fixed seed, no dependence on the benchmark split, so one eval
+    set serves all arms.
+
+    Args:
+        verbose: If True, print the count.
+
+    Returns:
+        A pandas DataFrame of held-out sentences, with the dedup key kept.
+    """
+    df = fetch_filtered()
+    train, test = load_splits("benchmark", seed=SHAH_SEEDS[0])
+    labelled = train["sentence"].to_list() + test["sentence"].to_list()
+    keys = set(pd.Series(labelled, dtype=str).map(normalize).map(dedup_key))
+    candidates = df[~df["key"].isin(keys)]
+    held = candidates.sample(frac=EVAL_FRACTION, random_state=EVAL_SEED)
+    if verbose:
+        print(f"eval set: {len(held):,} of {len(candidates):,} unlabelled filtered")
+    return held
 
 
 def build_pools(verbose=True):
@@ -61,8 +92,15 @@ def build_pools(verbose=True):
             print(
                 f"  {name}: {int(df['key'].isin(keys).sum())} contaminated rows removed"
             )
-    twd = twd[~twd["key"].isin(keys)].drop(columns="key")
-    wcb = wcb[~wcb["key"].isin(keys)].drop(columns="key")
+    twd = twd[~twd["key"].isin(keys)]
+    wcb = wcb[~wcb["key"].isin(keys)]
+
+    # the shared evaluation slice is held out of every arm
+    eval_keys = set(build_eval_set(verbose=False)["key"])
+    if verbose:
+        print(f"  twd: {int(twd['key'].isin(eval_keys).sum())} eval rows held out")
+    twd = twd[~twd["key"].isin(eval_keys)].drop(columns="key")
+    wcb = wcb[~wcb["key"].isin(eval_keys)].drop(columns="key")
 
     glob = pd.concat([twd.assign(bank="fomc"), wcb], ignore_index=True)
     if verbose:
@@ -88,7 +126,8 @@ def build_tapt_pool(seed, verbose=True):
     df = fetch_filtered()
     _, test = load_splits("benchmark", seed=seed)
     keys = set(pd.Series(test["sentence"].to_list()).map(normalize).map(dedup_key))
-    clean = df[~df["key"].isin(keys)]
+    eval_keys = set(build_eval_set(verbose=False)["key"])
+    clean = df[~df["key"].isin(keys) & ~df["key"].isin(eval_keys)]
     if verbose:
         print(f"tapt pool seed {seed}: {len(df):,} -> {len(clean):,}")
     return clean.drop(columns="key")

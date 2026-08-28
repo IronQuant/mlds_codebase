@@ -69,7 +69,7 @@ def fetch_filtered():
 
     rows = []
     for doc_type, sub in SUBDIRS.items():
-        files = glob.glob(str(RAW / sub / "*.csv"))
+        files = sorted(glob.glob(str(RAW / sub / "*.csv")))
         before = len(rows)
         for f in files:
             for s in pd.read_csv(f)["sentence"].dropna().astype(str):

@@ -91,7 +91,7 @@ def fetch_documents():
         ("meeting_minutes", "meeting_minutes"),
         ("speech", "speech/text/all"),
     ]:
-        files = glob.glob(str(RAW / sub / "*.txt"))
+        files = sorted(glob.glob(str(RAW / sub / "*.txt")))
         before = len(rows)
         for f in files:
             text = ftfy.fix_text(open(f, encoding="utf-8", errors="ignore").read())
@@ -99,7 +99,7 @@ def fetch_documents():
                 _keep(s, dt, _date(f), rows)
         stats[dt] = (len(files), len(rows) - before)
 
-    pc = glob.glob(str(RAW / "press_conference" / "csv" / "all" / "*.csv"))
+    pc = sorted(glob.glob(str(RAW / "press_conference" / "csv" / "all" / "*.csv")))
     before = len(rows)
     for f in pc:
         for s in pd.read_csv(f)["sentence"].dropna().astype(str):
