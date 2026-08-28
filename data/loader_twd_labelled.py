@@ -1,9 +1,9 @@
 """
 Acquire the Shah et al. (2023) labelled benchmark splits.
 GitHub is the only source for all three published
-splits. Fetch_splits() returns all six splits stacked. Load_splits() 
+splits. Fetch_splits() returns all six splits stacked. Load_splits()
 slices one seed into train and test frames.
-(or the chronological partition out of them) 
+(or the chronological partition out of them)
 """
 
 import io
@@ -25,7 +25,7 @@ def _read(split, seed):
     """
     Read one of the six published splits from GitHub.
     Six = 3 seeds x 2 splits (train/test)
-    
+
     Args:
         split: "train" or "test".
         seed: One of SHAH_SEEDS.
@@ -44,8 +44,8 @@ def _read(split, seed):
 def fetch_splits(verbose=True):
     """
     Return all six published splits stacked, with seed and split columns.
-    2,480 sentences x 3 seeds = 7,440 rows. 
-    
+    2,480 sentences x 3 seeds = 7,440 rows.
+
     Args:
         verbose: Print row counts for each seed/split.
     Returns:

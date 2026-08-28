@@ -1,12 +1,14 @@
 """
 Domain-adaptive pretraining (DAPT): continued MLM on unlabeled FOMC text.
 """
+
 import torch
 from torch.utils.data import DataLoader
 from transformers import (
     AutoModelForMaskedLM,
     AutoTokenizer,
     DataCollatorForLanguageModeling,
+    get_linear_schedule_with_warmup,
 )
 
 
@@ -38,7 +40,7 @@ def dapt(
         save_dir: Optional directory to save the fine-tuned model and tokenizer.
         device: Device to run the model on (e.g., "cpu" or "cuda").
         verbose: If True, print progress messages.
-    
+
     Returns:
         The save_dir path (or the in-memory model if save_dir is None) --
         fine-tune afterwards by passing save_dir as model_name to finetune().
@@ -64,6 +66,12 @@ def dapt(
     dl = DataLoader(encoded, batch_size=batch_size, shuffle=True, collate_fn=collate)
     opt = torch.optim.AdamW(model.parameters(), lr=lr)
 
+    # Sort out the linear scheduler
+    total_steps = len(dl) * epochs
+    sched = get_linear_schedule_with_warmup(
+        opt, num_warmup_steps=int(0.06 * total_steps), num_training_steps=total_steps
+    )
+
     if verbose:
         print(f"    training: {len(dl):,} steps/epoch x {epochs} epoch(s)", flush=True)
 
@@ -77,6 +85,7 @@ def dapt(
             loss = model(**batch).loss
             loss.backward()
             opt.step()
+            sched.step()
             total += loss.item()
             n += 1
         if verbose:

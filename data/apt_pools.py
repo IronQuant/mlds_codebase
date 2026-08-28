@@ -1,7 +1,7 @@
 """
 
 Build the DAPT pretraining pools.
-The per-source loaders each clean their own corpus. 
+The per-source loaders each clean their own corpus.
 
 Here, we do two additional steps:
   cross-source dedupe:  A sentence in both corpora is kept once, in TWD
@@ -22,7 +22,7 @@ from utils.corpus_helpers import dedup_key, normalize
 
 def build_pools(verbose=True):
     """
-    Return (fomc, global) pools as DataFrames. 
+    Return (fomc, global) pools as DataFrames.
 
     We download and clean the TWD and WCB corpora
     We deduplicate across corpora, keeping duplicates in TWD

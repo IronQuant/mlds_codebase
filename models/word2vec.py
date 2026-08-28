@@ -8,7 +8,7 @@ _KV = None
 def _vectors(name="word2vec-google-news-300"):
     """
     Load a pre-trained word2vec model.
-    First call downloads the model (~1.6GB) and caches it for future calls. 
+    First call downloads the model (~1.6GB) and caches it for future calls.
 
     Args:
         name: The name of the pre-trained word2vec model to load.
@@ -35,7 +35,6 @@ def _embed(sentences, kv):
     Returns:
         A numpy array of shape (len(sentences), kv.vector_size) containing the mean-pooled word2vec vectors.
     """
-
 
     out = np.zeros((len(sentences), kv.vector_size), dtype=np.float32)
     for i, s in enumerate(sentences):

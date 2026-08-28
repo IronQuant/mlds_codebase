@@ -16,12 +16,12 @@ from transformers import (
 def _load_model(model_name, device):
     """
     Load a pre-trained HuggingFace transformer model for sequence classification.
-    
+
     Args:
         model_name: The name of the pre-trained model to load.
         device: The device to load the model onto (e.g., "cpu" or "cuda").
     Returns:
-        The loaded model on the specified device.    
+        The loaded model on the specified device.
     """
     return AutoModelForSequenceClassification.from_pretrained(
         model_name, num_labels=3, torch_dtype=torch.float32
@@ -30,9 +30,9 @@ def _load_model(model_name, device):
 
 def _encode(tok, df, max_len):
     """
-    Convert a frame of sentences/labels into a list of dicts 
+    Convert a frame of sentences/labels into a list of dicts
     suitable for a HuggingFace DataLoader.
-    
+
     Args:
         tok: The tokenizer to use.
         df: A DataFrame with "sentence" and "label" columns.
@@ -41,7 +41,6 @@ def _encode(tok, df, max_len):
     Returns:
         A list of dicts with keys "input_ids", "attention_mask", and "labels".
     """
-
 
     # "Inflation pressures have eased."  (dovish)
     #   -> ['[CLS]', 'inflation', 'pressures', 'have', 'eased', '.', '[SEP]']
@@ -74,9 +73,9 @@ def _evaluate(model, dl, device, class_w=None):
     Returns:
         A tuple (cross_entropy, accuracy, weighted_f1, macro_f1).
     """
-    model.eval() # flip model to eval mode (no dropout, etc.)
+    model.eval()  # flip model to eval mode (no dropout, etc.)
 
-    # ce_sum: total CE loss, 
+    # ce_sum: total CE loss,
     # correct: number of correct predictions,
     # n: total number of samples,
     # yp: predicted labels,
@@ -85,7 +84,6 @@ def _evaluate(model, dl, device, class_w=None):
     ce_sum, correct, n, yp, yt = 0.0, 0, 0, [], []
     with torch.no_grad():
         for batch in dl:
-
             # true labels for this batch
             labels = batch["labels"]
 
@@ -160,8 +158,12 @@ def _score(model, tok, df, max_len, batch_size, class_w, device, prefix):
         collate_fn=DataCollatorWithPadding(tok),
     )
     ce, acc, f1, mf1 = _evaluate(model, dl, device, class_w)
-    return {f"{prefix}_ce": ce, f"{prefix}_acc": acc,
-            f"{prefix}_f1": f1, f"{prefix}_macro_f1": mf1}
+    return {
+        f"{prefix}_ce": ce,
+        f"{prefix}_acc": acc,
+        f"{prefix}_f1": f1,
+        f"{prefix}_macro_f1": mf1,
+    }
 
 
 def finetune(

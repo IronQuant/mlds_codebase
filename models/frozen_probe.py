@@ -5,8 +5,8 @@ from transformers import AutoModel, AutoTokenizer
 
 def _encode(model, tok, sentences, max_len, batch_size, device):
     """
-    Encode a list of sentences into mean-pooled vectors 
-    Using a frozen HuggingFace transformer model. 
+    Encode a list of sentences into mean-pooled vectors
+    Using a frozen HuggingFace transformer model.
 
     Args:
         model: A HuggingFace transformer model.
@@ -16,7 +16,7 @@ def _encode(model, tok, sentences, max_len, batch_size, device):
         batch_size: Batch size for encoding.
         device: Device to run the model on.
     Returns:
-        A numpy array of shape (len(sentences), hidden_size) 
+        A numpy array of shape (len(sentences), hidden_size)
         Containing the mean-pooled sentence vectors.
     """
 

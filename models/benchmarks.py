@@ -6,7 +6,7 @@ from config import NAME2INT
 def random_guess(test_df, seed=0):
     """
     Uniform random over the three classes. The chance floor.
-    
+
     Args:
         test_df: The test DataFrame, used to determine how many predictions to make.
         seed: Random seed for reproducibility.

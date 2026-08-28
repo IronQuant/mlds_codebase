@@ -94,8 +94,8 @@ def rule_model(sentences):
         sentences: List of sentence strings.
     Returns:
         A list of integer labels (0 = dovish, 1 = hawkish, 2 = neutral).
-        
-          
+
+
     """
     preds = []
     for s in sentences:

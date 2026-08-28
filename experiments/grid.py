@@ -32,7 +32,7 @@ def grid_search(
     device="cuda",
 ):
     """
-    
+
     Search lr x batch per model, recording validation metrics only.
 
     Winners are chosen by mean val_macro_f1 across seeds (see winners()); val_f1
@@ -113,7 +113,7 @@ def grid_search(
 def winners(grid_df):
     """
     Best (lr, batch) per model by mean validation macro-F1 across seeds.
-    
+
     Args:
         grid_df: A polars DataFrame containing the grid search results with columns:
 

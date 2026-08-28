@@ -23,7 +23,7 @@ def fetch_annotated(verbose=True):
             - bank_name: The bank from which the sentence was drawn.
             - sentence: The raw sentence text.
             - label: "hawkish" or "dovish".
-            - label_int: 0 for dovish, 1 for hawkish, 2 for neutral.            
+            - label_int: 0 for dovish, 1 for hawkish, 2 for neutral.
     """
     df = pd.concat(
         [
