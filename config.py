@@ -47,10 +47,16 @@ SHAH_PLM = {
 # -----------------------------------------------------------------------------------
 # Adaptation configuration (continued MLM)
 # -----------------------------------------------------------------------------------
-# Gururangan et al. (2020) Table 13, adjusted where our compute differs. 
+# Gururangan et al. (2020) Table 13. They use two settings: an effective batch of
+# 2048 at lr 5e-4 for DAPT, and 256 at 1e-4 for TAPT on tasks under 5K examples,
+# both reached through gradient accumulation. We apply the TAPT setting to every
+# arm, so the arms stay comparable to each other rather than each matching a
+# different external configuration. max_len matches our fine-tuning; theirs is
+# unstated. Everything else follows the paper.
 APT = dict(
-    lr=1e-5,
+    lr=1e-4,
     batch_size=32,
+    accum_steps=8,
     max_len=256,
     mlm_probability=0.15,
     warmup=0.06,

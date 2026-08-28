@@ -17,6 +17,7 @@ def adapt(
     model_name="roberta-large",
     lr=1e-5,
     batch_size=32,
+    accum_steps=8,
     max_len=256,
     epochs=1,
     mlm_probability=0.15,
@@ -72,7 +73,8 @@ def adapt(
     )
 
     # Sort out the linear scheduler
-    total_steps = len(dl) * epochs
+    # a step is one optimiser update, so len(dl) batches make len(dl)//accum steps
+    total_steps = len(dl) * epochs // accum_steps
     sched = get_linear_schedule_with_warmup(
         opt, num_warmup_steps=int(warmup * total_steps), num_training_steps=total_steps
     )
@@ -84,15 +86,18 @@ def adapt(
     model.train()
     for epoch in range(epochs):
         total, n = 0.0, 0
+        opt.zero_grad()
         for batch in dl:
             batch = {k: v.to(device) for k, v in batch.items()}
-            opt.zero_grad()
             loss = model(**batch).loss
-            loss.backward()
-            opt.step()
-            sched.step()
+            # scale so the accumulated gradient matches a true batch of this size
+            (loss / accum_steps).backward()
             total += loss.item()
             n += 1
+            if n % accum_steps == 0:
+                opt.step()
+                sched.step()
+                opt.zero_grad()
         if verbose:
             print(f"    epoch {epoch}: mlm loss {total / n:.4f}", flush=True)
 
