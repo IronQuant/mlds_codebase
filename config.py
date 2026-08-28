@@ -45,6 +45,28 @@ SHAH_PLM = {
 }
 
 # -----------------------------------------------------------------------------------
+# Adaptation configuration (continued MLM)
+# -----------------------------------------------------------------------------------
+# Gururangan et al. (2020) Table 13, adjusted where our compute differs. 
+APT = dict(
+    lr=1e-5,
+    batch_size=32,
+    max_len=256,
+    mlm_probability=0.15,
+    warmup=0.06,
+    adam_eps=1e-6,
+    adam_betas=(0.9, 0.98),
+)
+
+# adaptation budget per arm. DAPT is one pass over a large pool; TAPT is 100
+APT_EPOCHS = {
+    "dapt": 1,
+    "tapt": 100,
+    "curated-tapt": 12,
+}
+
+
+# -----------------------------------------------------------------------------------
 # Idioms
 # -----------------------------------------------------------------------------------
 

@@ -12,14 +12,17 @@ from transformers import (
 )
 
 
-def dapt(
+def adapt(
     sentences,
     model_name="roberta-large",
     lr=1e-5,
     batch_size=32,
-    max_len=128,
+    max_len=256,
     epochs=1,
     mlm_probability=0.15,
+    warmup=0.06,
+    adam_eps=1e-6,
+    adam_betas=(0.9, 0.98),
     seed=0,
     save_dir=None,
     device="cuda",
@@ -64,12 +67,14 @@ def dapt(
     collate = DataCollatorForLanguageModeling(tok, mlm_probability=mlm_probability)
 
     dl = DataLoader(encoded, batch_size=batch_size, shuffle=True, collate_fn=collate)
-    opt = torch.optim.AdamW(model.parameters(), lr=lr)
+    opt = torch.optim.AdamW(
+        model.parameters(), lr=lr, eps=adam_eps, betas=adam_betas
+    )
 
     # Sort out the linear scheduler
     total_steps = len(dl) * epochs
     sched = get_linear_schedule_with_warmup(
-        opt, num_warmup_steps=int(0.06 * total_steps), num_training_steps=total_steps
+        opt, num_warmup_steps=int(warmup * total_steps), num_training_steps=total_steps
     )
 
     if verbose:
