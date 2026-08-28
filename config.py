@@ -47,16 +47,16 @@ SHAH_PLM = {
 # -----------------------------------------------------------------------------------
 # Adaptation configuration (continued MLM)
 # -----------------------------------------------------------------------------------
-# Gururangan et al. (2020) Table 13. They use two settings: an effective batch of
-# 2048 at lr 5e-4 for DAPT, and 256 at 1e-4 for TAPT on tasks under 5K examples,
-# both reached through gradient accumulation. We apply the TAPT setting to every
-# arm, so the arms stay comparable to each other rather than each matching a
-# different external configuration. max_len matches our fine-tuning; theirs is
-# unstated. Everything else follows the paper.
+# Gururangan et al. (2020) Table 13, with one deviation. Their optimiser settings
+# were tuned for RoBERTa-base; at their learning rate of 1e-4 the MLM loss rises
+# on RoBERTa-large, so we keep 1e-5, which is also our fine-tuning rate. Without
+# their larger learning rate there is nothing to be gained from their accumulated
+# batch of 256, so we update every batch. max_len matches our fine-tuning; theirs
+# is unstated. Everything else follows the paper.
 APT = dict(
-    lr=1e-4,
+    lr=1e-5,
     batch_size=32,
-    accum_steps=8,
+    accum_steps=1,
     max_len=256,
     mlm_probability=0.15,
     warmup=0.06,
@@ -65,6 +65,8 @@ APT = dict(
 )
 
 # adaptation budget per arm. DAPT is one pass over a large pool; TAPT is 100
+# passes over a small one (Table 13). Curated-TAPT is not given an epoch count,
+# only 8.8K steps over 180K docs, which is ~12 passes at their batch size.
 APT_EPOCHS = {
     "dapt": 1,
     "tapt": 100,
