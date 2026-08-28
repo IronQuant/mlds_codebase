@@ -80,7 +80,11 @@ def adapt(
     )
 
     if verbose:
-        print(f"    training: {len(dl):,} steps/epoch x {epochs} epoch(s)", flush=True)
+        print(
+            f"    training: {len(dl):,} batches/epoch x {epochs} epoch(s), "
+            f"{total_steps:,} updates at effective batch {batch_size * accum_steps}",
+            flush=True,
+        )
 
     # Pre-training
     model.train()
