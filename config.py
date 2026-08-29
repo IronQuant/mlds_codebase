@@ -69,6 +69,7 @@ APT = dict(
 # only 8.8K steps over 180K docs, which is ~12 passes at their batch size.
 APT_EPOCHS = {
     "dapt": 1,
+    "dapt-x4": 4,
     "tapt": 100,
     "curated-tapt": 12,
 }
