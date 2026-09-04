@@ -18,3 +18,9 @@ tokens.env
 *.zip
 .DS_Store
 Thumbs.db
+
+# adapted checkpoints land here when no Drive is mounted
+models/*/
+
+# figures are produced from the committed results files, not shipped
+figures/

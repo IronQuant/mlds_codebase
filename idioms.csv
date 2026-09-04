@@ -1,0 +1,501 @@
+model,phrase,gold,hit,top5
+roberta-large,Accommodative [MASK] policy,monetary,False,immigration|visa|migration|tax|foreign
+roberta-large,Asset [MASK] program,purchase,False,management|enhancement|recycling|allocation|recovery
+roberta-large,Balance [MASK] payments,of,True,of|sheet|card|and|transfer
+roberta-large,Bank [MASK] International Settlements,for,True,for|of|for|for|of
+roberta-large,Basel [MASK] on Banking Supervision,committee,True,committee|principles|agreement|treaty|convention
+roberta-large,Bretton [MASK] system,woods,False,'s|delivery|security|alarm|heating
+roberta-large,Capital [MASK] ratio,adequacy,False,ization|payout|base|coverage|leverage
+roberta-large,Central [MASK] (CCP),counterparties,False,committee|press|casting|bank|europe
+roberta-large,Central [MASK] balance sheet,bank,True,bank|bank|banks|banking|european
+roberta-large,Central [MASK] digital currency,bank,True,bank|european|ized|izing|europe
+roberta-large,Collateralized [MASK] obligation,debt,True,debt|loan|contingent|note|derivative
+roberta-large,Committee [MASK] Payments and Market Infrastructure,on,True,"on|:|for|,|of"
+roberta-large,Commodity [MASK] index,price,True,price|prices|volatility|market|cost
+roberta-large,Contractionary [MASK] policy,monetary,True,fiscal|monetary|trade|tax|foreign
+roberta-large,Core [MASK] price index,consumer,True,consumer|home|house|wholesale|consumer
+roberta-large,Countercyclical [MASK] buffer,capital,False,buffer|risk|error|cash|growth
+roberta-large,Credit [MASK] swap,default,True,default|default|default|rating|asset
+roberta-large,Cross-Currency [MASK] Swaps,basis,False,swap|credit|fx|currency|price
+roberta-large,Currency [MASK] of reserves,composition,False,value|valuation|translation|value|conversion
+roberta-large,Decentralized [MASK] (DeFi),finance,True,framework|foundation|finance|funds|file
+roberta-large,Distributed [MASK] technology,ledger,True,storage|ledger|sensing|information|database
+roberta-large,Domestic [MASK] important bank,systemically,False,"and|most|,|but|strategically"
+roberta-large,Effective [MASK] bound,lower,True,lower|upper|time|higher|weight
+roberta-large,Effective [MASK] funds rate,federal,True,federal|fed|fed|federal|prime
+roberta-large,Effective [MASK] rate,exchange,False,tax|discount|unemployment|growth|marginal
+roberta-large,Efficient [MASK] hypothesis,market,False,distribution|energy|design|optimization|search
+roberta-large,Emerging [MASK] and developing economies,market,True,markets|market|market|nations|markets
+roberta-large,Emerging [MASK] economies,market,True,market|asian|market|markets|european
+roberta-large,European [MASK] Bank,central,True,central|investment|development|central|central
+roberta-large,Exchange [MASK] pass-through,rate,False,of|and|for|:|via
+roberta-large,Exchange [MASK] regime,rate,True,rate|control|rates|rate|reserve
+roberta-large,Expansionary [MASK] policy,monetary,True,fiscal|monetary|trade|economic|tax
+roberta-large,Financial [MASK] board,stability,False,advisory|services|regulatory|planning|oversight
+roberta-large,Fixed [MASK] rate,exchange,True,exchange|interest|deposit|lending|discount
+roberta-large,Floating [MASK] rate,exchange,True,interest|exchange|discount|swap|account
+roberta-large,Foreign [MASK] intervention,exchange,False,military|direct|political|policy|economic
+roberta-large,Foreign [MASK] investment,direct,True,direct|portfolio|direct|institutional|indirect
+roberta-large,Foreign [MASK] reserves,exchange,True,exchange|currency|exchange|account|gold
+roberta-large,Global [MASK] important banks,systemically,False,most|and|strategically|politically|ally
+roberta-large,Gross [MASK] debt,external,True,national|public|domestic|government|external
+roberta-large,Gross [MASK] product,domestic,True,of|domestic|finished|ing|end
+roberta-large,Interbank [MASK] rate,offered,True,offered|lending|offer|offering|interest
+roberta-large,Interest [MASK] on deposit facility,rate,True,rate|paid|payable|rates|earned
+roberta-large,Interest [MASK] on excess reserves,rate,False,paid|earned|payments|payable|accrued
+roberta-large,Interest [MASK] parity,rate,True,rate|rates|on|rate|cost
+roberta-large,Interest [MASK] risk,rate,True,rate|rates|rate|ing|payment
+roberta-large,Interest [MASK] swap,rate,True,rate|rates|rate|on|bearing
+roberta-large,Interest [MASK] targeting,rate,True,ing|in|and|ed|rate
+roberta-large,International [MASK] Fund,monetary,True,monetary|wildlife|development|marshall|population
+roberta-large,International [MASK] of Insurance Supervisors,association,True,association|council|federation|institute|society
+roberta-large,International [MASK] position,investment,False,legal|negotiating|political|diplomatic|trade
+roberta-large,Inverted [MASK] curve,yield,True,bell|yield|torque|power|growth
+roberta-large,Labor [MASK] participation rate,force,True,force|market|force|force|union
+roberta-large,Lender [MASK] last resort,of,True,"of|'s|,|as|is"
+roberta-large,Liquidity [MASK] test,stress,True,stress|tolerance|field|water|of
+roberta-large,London [MASK] Offered Rate,interbank,False,times|government|standard|exchange|national
+roberta-large,Long-term [MASK] operation,refinancing,False,business|sustainable|commercial|financial|planned
+roberta-large,Long-term [MASK] rates,interest,True,interest|mortgage|borrowing|lending|discount
+roberta-large,Macroprudential [MASK] measures,policy,False,reform|stability|support|supervision|intervention
+roberta-large,Main [MASK] operation,refinancing,False,tenance|stream|frame|line|business
+roberta-large,Marginal [MASK] facility,lending,False,parking|ized|storage|grade|rated
+roberta-large,Monetary [MASK] committee,policy,True,policy|affairs|policy|reform|oversight
+roberta-large,Monetary [MASK] framework,policy,True,policy|reform|governance|legal|regulatory
+roberta-large,Monetary [MASK] stance,policy,True,policy|policy|easing|tightening|union
+roberta-large,Monetary [MASK] transmission,policy,True,policy|value|information|power|currency
+roberta-large,Natural [MASK] of interest,rate,False,resources|areas|phenomena|hazards|features
+roberta-large,Natural [MASK] of unemployment,rate,True,causes|cycles|rate|rates|sources
+roberta-large,Negative [MASK] rates,interest,True,interest|exchange|growth|real|deposit
+roberta-large,Net [MASK] debt,external,True,external|financial|outstanding|foreign|operating
+roberta-large,Neutral [MASK] policy,monetary,True,foreign|energy|tax|monetary|fiscal
+roberta-large,Nominal [MASK] rate,exchange,False,unemployment|suicide|growth|error|discount
+roberta-large,Non-accelerating [MASK] rate of unemployment,inflation,False,annual|national|trend|real|headline
+roberta-large,Non-bank [MASK] institution,financial,True,financial|credit|lending|financial|payment
+roberta-large,Non-bank [MASK] intermediation,credit,True,financial|payment|credit|cash|banking
+roberta-large,Open [MASK] operations,market,False,source|for|to|all|house
+roberta-large,Overnight [MASK] facility,deposit,False,storage|parking|transit|lodging|stay
+roberta-large,Overnight [MASK] swap,index,True,index|indexed|overnight|prime|gold
+roberta-large,Pegged [MASK] rate,exchange,True,exchange|interest|discount|growth|inflation
+roberta-large,Producer [MASK] index,price,True,price|'s|prices|cost|confidence
+roberta-large,Purchasing [MASK] parity,power,True,power|power|price|cost|in
+roberta-large,Real [MASK] exchange rate,effective,True,currency|dollar|effective|foreign|market
+roberta-large,Real [MASK] rate,exchange,True,growth|exchange|interest|unemployment|savings
+roberta-large,Safe [MASK] assets,haven,True,haven|liquid|financial|haven|market
+roberta-large,Secured [MASK] financing rate,overnight,False,debt|note|loan|variable|at
+roberta-large,Short-term [MASK] rates,interest,True,interest|lending|mortgage|borrowing|funding
+roberta-large,Sovereign [MASK] crisis,debt,True,debt|in|currency|financial|banking
+roberta-large,Sovereign [MASK] fund,wealth,True,wealth|pension|defense|defence|guarantee
+roberta-large,Special [MASK] Rights,drawing,False,voting|constitutional|property|access|interest
+roberta-large,Special [MASK] vehicle,purpose,True,ist|ized|edition|purpose|ty
+roberta-large,Systemically [MASK] financial institution,important,True,important|significant|dangerous|important|risky
+roberta-large,Targeted [MASK] refinancing operations,longer,False,debt|loan|mortgage|bond|for
+roberta-large,Terms [MASK] trade,of,True,of|for|and|to|on
+roberta-large,Tier [MASK] capital,1,True,1|2|3|i|one
+roberta-large,Tight [MASK] policy,monetary,True,ening|ened|monetary|en|fiscal
+roberta-large,Too [MASK] to fail,big,True,big|good|expensive|smart|great
+roberta-large,Unconventional [MASK] policy,monetary,True,foreign|monetary|economic|trade|energy
+roberta-large,Value [MASK] Risk,at,True,and|of|at|from|without
+roberta-large,Velocity [MASK] money,of,True,of|and|is|=|equals
+roberta-large,Yield [MASK] control,curve,False,and|to|of|s|versus
+roberta-large,Zero [MASK] bound,lower,True,upper|lower|time|the|er
+dapt-fomc,Accommodative [MASK] policy,monetary,True,monetary|fiscal|economic|financial|foreign
+dapt-fomc,Asset [MASK] program,purchase,True,purchase|sales|sale|purchases|purchase
+dapt-fomc,Balance [MASK] payments,of,True,of|sheet|sheet|paper|line
+dapt-fomc,Bank [MASK] International Settlements,for,True,for|of|for|for|on
+dapt-fomc,Basel [MASK] on Banking Supervision,committee,False,ii|accord|i|iii|principles
+dapt-fomc,Bretton [MASK] system,woods,True,woods|delivery|'s|cable|reserve
+dapt-fomc,Capital [MASK] ratio,adequacy,False,leverage|coverage|requirement|ization|utilization
+dapt-fomc,Central [MASK] (CCP),counterparties,False,committee|bank|bank|banks|casting
+dapt-fomc,Central [MASK] balance sheet,bank,True,bank|bank|banks|banking|bank
+dapt-fomc,Central [MASK] digital currency,bank,True,bank|bank|european|banking|bank
+dapt-fomc,Collateralized [MASK] obligation,debt,True,debt|loan|note|credit|security
+dapt-fomc,Committee [MASK] Payments and Market Infrastructure,on,True,"on|for|,|of|:"
+dapt-fomc,Commodity [MASK] index,price,True,price|prices|volatility|pricing|cost
+dapt-fomc,Contractionary [MASK] policy,monetary,True,monetary|fiscal|economic|budget|financial
+dapt-fomc,Core [MASK] price index,consumer,True,consumer|cpi|producer|inflation|import
+dapt-fomc,Countercyclical [MASK] buffer,capital,True,capital|liquidity|policy|risk|reserve
+dapt-fomc,Credit [MASK] swap,default,True,default|risk|default|index|defaults
+dapt-fomc,Cross-Currency [MASK] Swaps,basis,False,risk|credit|forward|treasury|swap
+dapt-fomc,Currency [MASK] of reserves,composition,False,value|valuation|use|holdings|values
+dapt-fomc,Decentralized [MASK] (DeFi),finance,True,finance|funds|finance|funds|funding
+dapt-fomc,Distributed [MASK] technology,ledger,True,ledger|information|communications|control|communication
+dapt-fomc,Domestic [MASK] important bank,systemically,False,"and|,|most|internationally|or"
+dapt-fomc,Effective [MASK] bound,lower,True,lower|upper|zero|higher|time
+dapt-fomc,Effective [MASK] funds rate,federal,True,federal|fed|real|federal|fed
+dapt-fomc,Effective [MASK] rate,exchange,True,tax|discount|unemployment|exchange|funds
+dapt-fomc,Efficient [MASK] hypothesis,market,True,market|policy|markets|equilibrium|competition
+dapt-fomc,Emerging [MASK] and developing economies,market,True,markets|market|asian|market|economies
+dapt-fomc,Emerging [MASK] economies,market,True,market|asian|market|markets|foreign
+dapt-fomc,European [MASK] Bank,central,True,central|investment|development|central|central
+dapt-fomc,Exchange [MASK] pass-through,rate,True,rate|ratio|value|risk|of
+dapt-fomc,Exchange [MASK] regime,rate,True,rate|management|control|rates|policy
+dapt-fomc,Expansionary [MASK] policy,monetary,True,monetary|fiscal|economic|financial|budget
+dapt-fomc,Financial [MASK] board,stability,True,services|regulatory|stability|stability|exam
+dapt-fomc,Fixed [MASK] rate,exchange,True,exchange|funds|interest|policy|deposit
+dapt-fomc,Floating [MASK] rate,exchange,True,funds|exchange|interest|policy|discount
+dapt-fomc,Foreign [MASK] intervention,exchange,True,policy|fiscal|direct|exchange|currency
+dapt-fomc,Foreign [MASK] investment,direct,True,direct|portfolio|equity|indirect|institutional
+dapt-fomc,Foreign [MASK] reserves,exchange,True,exchange|currency|financial|oil|national
+dapt-fomc,Global [MASK] important banks,systemically,False,"and|most|,|ally|ically"
+dapt-fomc,Gross [MASK] debt,external,False,domestic|national|federal|household|corporate
+dapt-fomc,Gross [MASK] product,domestic,True,domestic|national|final|domestic|farm
+dapt-fomc,Interbank [MASK] rate,offered,True,offered|offer|offering|lending|funds
+dapt-fomc,Interest [MASK] on deposit facility,rate,True,rate|rates|paid|payable|payments
+dapt-fomc,Interest [MASK] on excess reserves,rate,True,rates|payments|paid|rate|earned
+dapt-fomc,Interest [MASK] parity,rate,True,rate|rates|on|at|risk
+dapt-fomc,Interest [MASK] risk,rate,True,rate|rates|rate|rate|ing
+dapt-fomc,Interest [MASK] swap,rate,True,rate|rates|rate|swap|risk
+dapt-fomc,Interest [MASK] targeting,rate,True,rate|rates|rate|rate|level
+dapt-fomc,International [MASK] Fund,monetary,True,monetary|development|investment|rescue|marshall
+dapt-fomc,International [MASK] of Insurance Supervisors,association,True,association|federation|organization|conference|committee
+dapt-fomc,International [MASK] position,investment,False,financial|reserve|monetary|capital|trade
+dapt-fomc,Inverted [MASK] curve,yield,True,yield|phillips|forward|money|credit
+dapt-fomc,Labor [MASK] participation rate,force,True,force|market|force|force|forces
+dapt-fomc,Lender [MASK] last resort,of,True,"of|,|'s|at|as"
+dapt-fomc,Liquidity [MASK] test,stress,True,stress|risk|ratio|capital|management
+dapt-fomc,London [MASK] Offered Rate,interbank,False,exchange|standard|bank|legal|government
+dapt-fomc,Long-term [MASK] operation,refinancing,False,business|market|budget|policy|financial
+dapt-fomc,Long-term [MASK] rates,interest,True,interest|mortgage|treasury|funding|policy
+dapt-fomc,Macroprudential [MASK] measures,policy,True,stability|supervision|policy|capital|reform
+dapt-fomc,Main [MASK] operation,refinancing,False,tenance|banking|business|market|bank
+dapt-fomc,Marginal [MASK] facility,lending,True,credit|liquidity|lending|reserve|repo
+dapt-fomc,Monetary [MASK] committee,policy,True,policy|policy|affairs|policies|standing
+dapt-fomc,Monetary [MASK] framework,policy,True,policy|policy|policies|easing|transmission
+dapt-fomc,Monetary [MASK] stance,policy,True,policy|policy|easing|tightening|policies
+dapt-fomc,Monetary [MASK] transmission,policy,True,policy|policy|monetary|force|inflation
+dapt-fomc,Natural [MASK] of interest,rate,False,resources|sources|areas|conflicts|factors
+dapt-fomc,Natural [MASK] of unemployment,rate,True,rate|rates|causes|ization|sources
+dapt-fomc,Negative [MASK] rates,interest,True,interest|exchange|real|inflation|policy
+dapt-fomc,Net [MASK] debt,external,True,external|federal|domestic|foreign|public
+dapt-fomc,Neutral [MASK] policy,monetary,True,monetary|fiscal|economic|rate|monetary
+dapt-fomc,Nominal [MASK] rate,exchange,False,unemployment|interest|inflation|discount|funds
+dapt-fomc,Non-accelerating [MASK] rate of unemployment,inflation,False,trend|headline|real|normal|average
+dapt-fomc,Non-bank [MASK] institution,financial,True,financial|banking|credit|holding|lending
+dapt-fomc,Non-bank [MASK] intermediation,credit,True,financial|payment|credit|monetary|market
+dapt-fomc,Open [MASK] operations,market,True,market|for|to|ended|market
+dapt-fomc,Overnight [MASK] facility,deposit,True,repo|lending|funding|borrowing|deposit
+dapt-fomc,Overnight [MASK] swap,index,True,index|indexed|default|overnight|rate
+dapt-fomc,Pegged [MASK] rate,exchange,True,exchange|interest|funds|policy|discount
+dapt-fomc,Producer [MASK] index,price,True,price|prices|cost|inflation|costs
+dapt-fomc,Purchasing [MASK] parity,power,True,power|power|agreement|price|authority
+dapt-fomc,Real [MASK] exchange rate,effective,True,foreign|effective|dollar|market|nominal
+dapt-fomc,Real [MASK] rate,exchange,True,unemployment|interest|exchange|saving|inflation
+dapt-fomc,Safe [MASK] assets,haven,True,haven|financial|foreign|market|liquid
+dapt-fomc,Secured [MASK] financing rate,overnight,True,market|debt|mortgage|overnight|by
+dapt-fomc,Short-term [MASK] rates,interest,True,interest|policy|funding|funds|market
+dapt-fomc,Sovereign [MASK] crisis,debt,True,debt|financial|default|rating|funding
+dapt-fomc,Sovereign [MASK] fund,wealth,True,wealth|debt|hedge|insurance|rescue
+dapt-fomc,Special [MASK] Rights,drawing,False,voting|property|access|ty|legal
+dapt-fomc,Special [MASK] vehicle,purpose,True,purpose|purpose|financing|delivery|ized
+dapt-fomc,Systemically [MASK] financial institution,important,True,important|significant|important|risky|complex
+dapt-fomc,Targeted [MASK] refinancing operations,longer,False,mortgage|debt|loan|cra|principal
+dapt-fomc,Terms [MASK] trade,of,True,of|for|and|to|on
+dapt-fomc,Tier [MASK] capital,1,True,1|2|i|one|ii
+dapt-fomc,Tight [MASK] policy,monetary,True,monetary|ening|fiscal|ens|ened
+dapt-fomc,Too [MASK] to fail,big,True,big|large|good|expensive|great
+dapt-fomc,Unconventional [MASK] policy,monetary,True,monetary|fiscal|economic|tax|foreign
+dapt-fomc,Value [MASK] Risk,at,True,of|and|at|from|for
+dapt-fomc,Velocity [MASK] money,of,True,of|and|for|on|in
+dapt-fomc,Yield [MASK] control,curve,True,and|curve|curve|s|on
+dapt-fomc,Zero [MASK] bound,lower,True,lower|upper|zero|time|error
+dapt-global,Accommodative [MASK] policy,monetary,True,monetary|fiscal|financial|economic|credit
+dapt-global,Asset [MASK] program,purchase,True,purchase|purchases|sales|management|disposal
+dapt-global,Balance [MASK] payments,of,True,of|sheet|and|card|account
+dapt-global,Bank [MASK] International Settlements,for,True,for|of|for|for|on
+dapt-global,Basel [MASK] on Banking Supervision,committee,False,ii|i|accord|principles|iii
+dapt-global,Bretton [MASK] system,woods,True,delivery|'s|woods|university|transmission
+dapt-global,Capital [MASK] ratio,adequacy,False,leverage|ization|requirement|gearing|adequ
+dapt-global,Central [MASK] (CCP),counterparties,False,committee|calculator|casting|provision|bank
+dapt-global,Central [MASK] balance sheet,bank,True,bank|banks|bank|banks|reserve
+dapt-global,Central [MASK] digital currency,bank,True,bank|ized|ised|european|american
+dapt-global,Collateralized [MASK] obligation,debt,True,debt|loan|note|mortgage|credit
+dapt-global,Committee [MASK] Payments and Market Infrastructure,on,True,"on|,|:|of|for"
+dapt-global,Commodity [MASK] index,price,True,price|prices|inflation|pricing|volatility
+dapt-global,Contractionary [MASK] policy,monetary,True,monetary|fiscal|economic|financial|rate
+dapt-global,Core [MASK] price index,consumer,True,consumer|goods|producer|services|cpi
+dapt-global,Countercyclical [MASK] buffer,capital,True,capital|liquidity|policy|risk|reserve
+dapt-global,Credit [MASK] swap,default,True,default|risk|default|default|index
+dapt-global,Cross-Currency [MASK] Swaps,basis,False,equity|treasury|credit|swap|forward
+dapt-global,Currency [MASK] of reserves,composition,False,value|ization|valuation|holdings|use
+dapt-global,Decentralized [MASK] (DeFi),finance,True,finance|funds|funding|financial|infrastructure
+dapt-global,Distributed [MASK] technology,ledger,True,information|ledger|communications|payment|communication
+dapt-global,Domestic [MASK] important bank,systemically,False,"and|ally|most|,|market"
+dapt-global,Effective [MASK] bound,lower,True,lower|upper|zero|higher|time
+dapt-global,Effective [MASK] funds rate,federal,True,federal|fed|real|federal|nominal
+dapt-global,Effective [MASK] rate,exchange,True,exchange|discount|unemployment|tax|interest
+dapt-global,Efficient [MASK] hypothesis,market,True,policy|market|growth|transmission|competition
+dapt-global,Emerging [MASK] and developing economies,market,True,market|markets|economies|countries|asian
+dapt-global,Emerging [MASK] economies,market,True,market|markets|market|asian|market
+dapt-global,European [MASK] Bank,central,True,central|investment|stability|central|union
+dapt-global,Exchange [MASK] pass-through,rate,True,rate|rate|risk|and|rate
+dapt-global,Exchange [MASK] regime,rate,True,rate|control|rate|rates|management
+dapt-global,Expansionary [MASK] policy,monetary,True,monetary|fiscal|economic|financial|trade
+dapt-global,Financial [MASK] board,stability,True,stability|services|regulatory|advisory|policy
+dapt-global,Fixed [MASK] rate,exchange,True,exchange|interest|reference|lending|bank
+dapt-global,Floating [MASK] rate,exchange,True,exchange|interest|funds|reference|discount
+dapt-global,Foreign [MASK] intervention,exchange,True,policy|monetary|currency|fiscal|exchange
+dapt-global,Foreign [MASK] investment,direct,True,direct|portfolio|equity|institutional|fixed
+dapt-global,Foreign [MASK] reserves,exchange,True,exchange|currency|gold|excess|financial
+dapt-global,Global [MASK] important banks,systemically,False,and|most|ally|ically|ly
+dapt-global,Gross [MASK] debt,external,True,domestic|household|national|public|external
+dapt-global,Gross [MASK] product,domestic,True,domestic|domestic|agricultural|farm|foreign
+dapt-global,Interbank [MASK] rate,offered,True,interest|offered|offer|lending|call
+dapt-global,Interest [MASK] on deposit facility,rate,True,rate|rates|payments|paid|s
+dapt-global,Interest [MASK] on excess reserves,rate,True,payments|rates|paid|rate|ing
+dapt-global,Interest [MASK] parity,rate,True,rate|rates|on|ing|rate
+dapt-global,Interest [MASK] risk,rate,True,rate|rates|ing|rate|rate
+dapt-global,Interest [MASK] swap,rate,True,rate|rates|swap|on|bearing
+dapt-global,Interest [MASK] targeting,rate,True,rate|rate|rates|level|ual
+dapt-global,International [MASK] Fund,monetary,True,monetary|wildlife|investment|development|population
+dapt-global,International [MASK] of Insurance Supervisors,association,True,association|organization|conference|committee|federation
+dapt-global,International [MASK] position,investment,False,financial|trade|economic|monetary|liquidity
+dapt-global,Inverted [MASK] curve,yield,True,yield|phillips|forward|yields|credit
+dapt-global,Labor [MASK] participation rate,force,True,force|market|force|force|forces
+dapt-global,Lender [MASK] last resort,of,True,"of|'s|,|at|as"
+dapt-global,Liquidity [MASK] test,stress,True,stress|risk|capital|market|management
+dapt-global,London [MASK] Offered Rate,interbank,False,exchange|bank|national|municipal|legal
+dapt-global,Long-term [MASK] operation,refinancing,False,market|repo|funding|financing|liquidity
+dapt-global,Long-term [MASK] rates,interest,True,interest|inflation|policy|real|forward
+dapt-global,Macroprudential [MASK] measures,policy,True,policy|stability|supervision|reform|tightening
+dapt-global,Main [MASK] operation,refinancing,False,tenance|market|banking|bank|business
+dapt-global,Marginal [MASK] facility,lending,True,credit|lending|liquidity|deposit|funding
+dapt-global,Monetary [MASK] committee,policy,True,policy|policy|affairs|stability|affairs
+dapt-global,Monetary [MASK] framework,policy,True,policy|policy|easing|reform|tightening
+dapt-global,Monetary [MASK] stance,policy,True,policy|policy|easing|tightening|policies
+dapt-global,Monetary [MASK] transmission,policy,True,policy|policy|easing|stimulus|inflation
+dapt-global,Natural [MASK] of interest,rate,False,conflicts|rates|conflict|communities|areas
+dapt-global,Natural [MASK] of unemployment,rate,True,rate|rates|ization|sources|causes
+dapt-global,Negative [MASK] rates,interest,True,interest|real|exchange|inflation|growth
+dapt-global,Net [MASK] debt,external,True,external|foreign|public|domestic|household
+dapt-global,Neutral [MASK] policy,monetary,True,monetary|fiscal|rate|monetary|interest
+dapt-global,Nominal [MASK] rate,exchange,False,interest|unemployment|funds|repo|savings
+dapt-global,Non-accelerating [MASK] rate of unemployment,inflation,False,trend|annual|growth|unemployment|real
+dapt-global,Non-bank [MASK] institution,financial,True,financial|lending|credit|holding|private
+dapt-global,Non-bank [MASK] intermediation,credit,True,financial|credit|payment|monetary|economic
+dapt-global,Open [MASK] operations,market,True,market|market|market|markets|house
+dapt-global,Overnight [MASK] facility,deposit,True,deposit|lending|call|funding|borrowing
+dapt-global,Overnight [MASK] swap,index,True,index|inflation|indexed|default|overnight
+dapt-global,Pegged [MASK] rate,exchange,True,exchange|interest|policy|bank|repo
+dapt-global,Producer [MASK] index,price,True,price|prices|cost|confidence|output
+dapt-global,Purchasing [MASK] parity,power,True,power|power|price|capacity|power
+dapt-global,Real [MASK] exchange rate,effective,True,effective|foreign|sterling|nominal|weighted
+dapt-global,Real [MASK] rate,exchange,True,unemployment|interest|exchange|inflation|growth
+dapt-global,Safe [MASK] assets,haven,True,haven|financial|foreign|haven|domestic
+dapt-global,Secured [MASK] financing rate,overnight,False,debt|mortgage|corporate|bank|loan
+dapt-global,Short-term [MASK] rates,interest,True,interest|market|policy|lending|exchange
+dapt-global,Sovereign [MASK] crisis,debt,True,debt|financial|fiscal|adjustment|financing
+dapt-global,Sovereign [MASK] fund,wealth,True,wealth|debt|guarantee|investment|insurance
+dapt-global,Special [MASK] Rights,drawing,False,voting|legal|constitutional|privacy|property
+dapt-global,Special [MASK] vehicle,purpose,True,purpose|purpose|financing|operations|ized
+dapt-global,Systemically [MASK] financial institution,important,True,important|important|significant|complex|critical
+dapt-global,Targeted [MASK] refinancing operations,longer,False,debt|mortgage|loan|portfolio|principal
+dapt-global,Terms [MASK] trade,of,True,of|for|and|to|on
+dapt-global,Tier [MASK] capital,1,True,1|2|one|i|3
+dapt-global,Tight [MASK] policy,monetary,True,monetary|ening|fiscal|ened|financial
+dapt-global,Too [MASK] to fail,big,True,big|large|good|important|strong
+dapt-global,Unconventional [MASK] policy,monetary,True,monetary|fiscal|economic|tax|foreign
+dapt-global,Value [MASK] Risk,at,True,and|of|at|from|for
+dapt-global,Velocity [MASK] money,of,True,of|for|and|in|on
+dapt-global,Yield [MASK] control,curve,True,curve|s|curve|spread|rate
+dapt-global,Zero [MASK] bound,lower,True,lower|upper|tolerance|zero|higher
+tapt,Accommodative [MASK] policy,monetary,True,monetary|fiscal|monetary|economic|financial
+tapt,Asset [MASK] program,purchase,True,purchase|purchases|purchasing|purchase|sales
+tapt,Balance [MASK] payments,of,True,of|sheet|sheet|mortgage|card
+tapt,Bank [MASK] International Settlements,for,True,for|of|on|for|for
+tapt,Basel [MASK] on Banking Supervision,committee,True,committee|principles|accord|iii|treaty
+tapt,Bretton [MASK] system,woods,False,delivery|monetary|'s|point|payroll
+tapt,Capital [MASK] ratio,adequacy,False,payout|ization|leverage|retention|stock
+tapt,Central [MASK] (CCP),counterparties,False,committee|tendency|bank|potential|costs
+tapt,Central [MASK] balance sheet,bank,True,bank|bank|banks|banking|banker
+tapt,Central [MASK] digital currency,bank,True,bank|banks|european|banking|europe
+tapt,Collateralized [MASK] obligation,debt,True,debt|loan|mortgage|general|reserve
+tapt,Committee [MASK] Payments and Market Infrastructure,on,True,"on|on|:|,|of"
+tapt,Commodity [MASK] index,price,True,price|prices|price|inflation|pricing
+tapt,Contractionary [MASK] policy,monetary,True,monetary|fiscal|monetary|inflation|economic
+tapt,Core [MASK] price index,consumer,True,consumer|cpi|pc|inflation|price
+tapt,Countercyclical [MASK] buffer,capital,False,policy|monetary|reserve|inflation|fiscal
+tapt,Credit [MASK] swap,default,True,default|default|default|collateral|risk
+tapt,Cross-Currency [MASK] Swaps,basis,False,bond|price|interest|credit|equity
+tapt,Currency [MASK] of reserves,composition,False,value|and|valuation|cost|costs
+tapt,Decentralized [MASK] (DeFi),finance,True,finance|funds|funding|financial|finance
+tapt,Distributed [MASK] technology,ledger,True,ledger|delivery|information|communications|storage
+tapt,Domestic [MASK] important bank,systemically,False,demand|policy|economy|inflation|growth
+tapt,Effective [MASK] bound,lower,True,lower|low|zero|higher|upper
+tapt,Effective [MASK] funds rate,federal,True,federal|federal|real|national|universal
+tapt,Effective [MASK] rate,exchange,False,tax|unemployment|utilization|discount|poverty
+tapt,Efficient [MASK] hypothesis,market,True,growth|policy|market|distribution|design
+tapt,Emerging [MASK] and developing economies,market,True,markets|market|market|asian|markets
+tapt,Emerging [MASK] economies,market,True,market|asian|market|markets|foreign
+tapt,European [MASK] Bank,central,True,central|investment|central|development|stability
+tapt,Exchange [MASK] pass-through,rate,True,rate|value|rates|rate|ratio
+tapt,Exchange [MASK] regime,rate,True,rate|rates|reserve|control|management
+tapt,Expansionary [MASK] policy,monetary,True,monetary|fiscal|monetary|economic|financial
+tapt,Financial [MASK] board,stability,True,stability|stability|services|markets|exam
+tapt,Fixed [MASK] rate,exchange,True,interest|funds|exchange|unemployment|inflation
+tapt,Floating [MASK] rate,exchange,True,funds|interest|exchange|inflation|unemployment
+tapt,Foreign [MASK] intervention,exchange,False,policy|economic|fiscal|direct|currency
+tapt,Foreign [MASK] investment,direct,True,direct|portfolio|equity|institutional|domestic
+tapt,Foreign [MASK] reserves,exchange,True,exchange|currency|nominal|excess|commercial
+tapt,Global [MASK] important banks,systemically,False,most|and|financial|strategically|ically
+tapt,Gross [MASK] debt,external,True,domestic|national|external|federal|mortgage
+tapt,Gross [MASK] product,domestic,True,domestic|domestic|national|final|farm
+tapt,Interbank [MASK] rate,offered,True,offered|interest|lending|interim|repo
+tapt,Interest [MASK] on deposit facility,rate,True,rate|rates|paid|payable|s
+tapt,Interest [MASK] on excess reserves,rate,True,rates|s|paid|rate|payments
+tapt,Interest [MASK] parity,rate,True,rate|rates|rate|ing|on
+tapt,Interest [MASK] risk,rate,True,rate|rate|rates|ing|rate
+tapt,Interest [MASK] swap,rate,True,rate|rates|rate|bearing|rate
+tapt,Interest [MASK] targeting,rate,True,rate|inflation|rate|ing|rates
+tapt,International [MASK] Fund,monetary,True,monetary|development|marshall|reserve|space
+tapt,International [MASK] of Insurance Supervisors,association,True,association|conference|committee|network|federation
+tapt,International [MASK] position,investment,False,financial|economic|monetary|trade|growth
+tapt,Inverted [MASK] curve,yield,True,yield|phillips|supply|demand|money
+tapt,Labor [MASK] participation rate,force,True,force|market|force|force|participation
+tapt,Lender [MASK] last resort,of,True,"of|'s|,|as|the"
+tapt,Liquidity [MASK] test,stress,True,stress|field|stability|market|swamp
+tapt,London [MASK] Offered Rate,interbank,False,legal|standard|national|government|bank
+tapt,Long-term [MASK] operation,refinancing,False,economic|budget|inflation|growth|financial
+tapt,Long-term [MASK] rates,interest,True,interest|inflation|treasury|unemployment|forward
+tapt,Macroprudential [MASK] measures,policy,True,stability|policy|support|health|performance
+tapt,Main [MASK] operation,refinancing,False,tenance|economic|business|financial|stream
+tapt,Marginal [MASK] facility,lending,False,credit|unemployment|balance|growth|inflation
+tapt,Monetary [MASK] committee,policy,True,policy|policy|policies|affairs|policy
+tapt,Monetary [MASK] framework,policy,True,policy|policy|policy|policies|strategy
+tapt,Monetary [MASK] stance,policy,True,policy|policy|policy|easing|policies
+tapt,Monetary [MASK] transmission,policy,True,policy|policy|policy|policies|monetary
+tapt,Natural [MASK] of interest,rate,False,rates|conflicts|sources|changes|communities
+tapt,Natural [MASK] of unemployment,rate,True,rate|rates|ization|reduction|sources
+tapt,Negative [MASK] rates,interest,True,interest|inflation|growth|real|exchange
+tapt,Net [MASK] debt,external,True,external|domestic|foreign|mortgage|municipal
+tapt,Neutral [MASK] policy,monetary,True,monetary|monetary|interest|fiscal|economic
+tapt,Nominal [MASK] rate,exchange,False,unemployment|interest|inflation|savings|unemployment
+tapt,Non-accelerating [MASK] rate of unemployment,inflation,False,structural|civilian|trend|normal|underlying
+tapt,Non-bank [MASK] institution,financial,True,financial|lending|monetary|financial|credit
+tapt,Non-bank [MASK] intermediation,credit,True,financial|monetary|credit|bank|cash
+tapt,Open [MASK] operations,market,True,market|market|ings|house|ended
+tapt,Overnight [MASK] facility,deposit,False,repo|lending|borrowing|loan|funding
+tapt,Overnight [MASK] swap,index,True,indexed|index|inflation|repo|mortgage
+tapt,Pegged [MASK] rate,exchange,True,interest|exchange|funds|inflation|funds
+tapt,Producer [MASK] index,price,True,price|prices|cost|inflation|price
+tapt,Purchasing [MASK] parity,power,True,power|power|price|cost|tax
+tapt,Real [MASK] exchange rate,effective,True,foreign|currency|gdp|effective|market
+tapt,Real [MASK] rate,exchange,False,unemployment|interest|growth|gdp|vacancy
+tapt,Safe [MASK] assets,haven,True,haven|domestic|foreign|investment|liquid
+tapt,Secured [MASK] financing rate,overnight,True,mortgage|interest|overnight|market|debt
+tapt,Short-term [MASK] rates,interest,True,interest|treasury|mortgage|interest|inflation
+tapt,Sovereign [MASK] crisis,debt,True,debt|financial|credit|currency|loan
+tapt,Sovereign [MASK] fund,wealth,True,wealth|debt|reserve|rescue|guaranteed
+tapt,Special [MASK] Rights,drawing,True,voting|property|membership|religious|drawing
+tapt,Special [MASK] vehicle,purpose,True,purpose|purpose|ized|interest|ist
+tapt,Systemically [MASK] financial institution,important,True,important|significant|important|important|critical
+tapt,Targeted [MASK] refinancing operations,longer,False,mortgage|debt|principal|domestic|loan
+tapt,Terms [MASK] trade,of,True,of|for|and|on|about
+tapt,Tier [MASK] capital,1,True,1|2|one|i|two
+tapt,Tight [MASK] policy,monetary,True,monetary|ening|fiscal|monetary|money
+tapt,Too [MASK] to fail,big,True,big|good|large|perfect|great
+tapt,Unconventional [MASK] policy,monetary,True,monetary|fiscal|growth|economic|tax
+tapt,Value [MASK] Risk,at,True,of|and|at|added|for
+tapt,Velocity [MASK] money,of,True,of|and|for|in|on
+tapt,Yield [MASK] control,curve,False,under|inflation|s|price|in
+tapt,Zero [MASK] bound,lower,True,lower|upper|inflation|error|supply
+dapt-global+tapt,Accommodative [MASK] policy,monetary,True,monetary|fiscal|monetary|financial|inflation
+dapt-global+tapt,Asset [MASK] program,purchase,True,purchase|purchases|purchasing|purchase|sales
+dapt-global+tapt,Balance [MASK] payments,of,True,of|sheet|sheet|mortgage|card
+dapt-global+tapt,Bank [MASK] International Settlements,for,True,for|of|on|for|for
+dapt-global+tapt,Basel [MASK] on Banking Supervision,committee,True,accord|committee|ii|principles|i
+dapt-global+tapt,Bretton [MASK] system,woods,False,'s|curve|monetary|payroll|tax
+dapt-global+tapt,Capital [MASK] ratio,adequacy,False,leverage|payout|shortfall|retention|adequ
+dapt-global+tapt,Central [MASK] (CCP),counterparties,False,tendency|committee|projections|bank|potential
+dapt-global+tapt,Central [MASK] balance sheet,bank,True,bank|bank|banks|banks|banking
+dapt-global+tapt,Central [MASK] digital currency,bank,True,bank|banks|banking|european|and
+dapt-global+tapt,Collateralized [MASK] obligation,debt,True,loan|debt|mortgage|securities|general
+dapt-global+tapt,Committee [MASK] Payments and Market Infrastructure,on,True,"on|on|,|:|of"
+dapt-global+tapt,Commodity [MASK] index,price,True,price|prices|price|inflation|pricing
+dapt-global+tapt,Contractionary [MASK] policy,monetary,True,monetary|fiscal|monetary|trade|growth
+dapt-global+tapt,Core [MASK] price index,consumer,True,consumer|goods|cpi|pc|producer
+dapt-global+tapt,Countercyclical [MASK] buffer,capital,False,inflation|fiscal|monetary|policy|reserve
+dapt-global+tapt,Credit [MASK] swap,default,True,default|risk|default|default|index
+dapt-global+tapt,Cross-Currency [MASK] Swaps,basis,False,interest|bond|equity|price|credit
+dapt-global+tapt,Currency [MASK] of reserves,composition,False,and|balances|value|costs|cost
+dapt-global+tapt,Decentralized [MASK] (DeFi),finance,True,finance|funds|funding|finance|identity
+dapt-global+tapt,Distributed [MASK] technology,ledger,True,ledger|information|delivery|communications|distribution
+dapt-global+tapt,Domestic [MASK] important bank,systemically,False,demand|and|economy|most|accounts
+dapt-global+tapt,Effective [MASK] bound,lower,True,lower|zero|upper|higher|low
+dapt-global+tapt,Effective [MASK] funds rate,federal,True,federal|federal|real|nominal|fed
+dapt-global+tapt,Effective [MASK] rate,exchange,False,unemployment|tax|discount|funds|interest
+dapt-global+tapt,Efficient [MASK] hypothesis,market,True,policy|market|markets|trade|pricing
+dapt-global+tapt,Emerging [MASK] and developing economies,market,True,markets|market|asian|markets|market
+dapt-global+tapt,Emerging [MASK] economies,market,True,market|market|asian|markets|foreign
+dapt-global+tapt,European [MASK] Bank,central,True,central|central|investment|stability|central
+dapt-global+tapt,Exchange [MASK] pass-through,rate,True,rate|rate|value|cost|risk
+dapt-global+tapt,Exchange [MASK] regime,rate,True,rate|reserve|market|policy|trading
+dapt-global+tapt,Expansionary [MASK] policy,monetary,True,monetary|fiscal|economic|trade|monetary
+dapt-global+tapt,Financial [MASK] board,stability,True,stability|stability|services|conditions|markets
+dapt-global+tapt,Fixed [MASK] rate,exchange,True,exchange|interest|inflation|mortgage|funds
+dapt-global+tapt,Floating [MASK] rate,exchange,True,interest|funds|exchange|inflation|money
+dapt-global+tapt,Foreign [MASK] intervention,exchange,False,policy|economic|fiscal|monetary|direct
+dapt-global+tapt,Foreign [MASK] investment,direct,True,portfolio|direct|fixed|residential|equity
+dapt-global+tapt,Foreign [MASK] reserves,exchange,True,exchange|currency|excess|domestic|national
+dapt-global+tapt,Global [MASK] important banks,systemically,False,most|and|ally|ically|most
+dapt-global+tapt,Gross [MASK] debt,external,True,domestic|mortgage|national|external|household
+dapt-global+tapt,Gross [MASK] product,domestic,True,domestic|domestic|farm|final|foreign
+dapt-global+tapt,Interbank [MASK] rate,offered,True,interest|offered|lending|offer|funds
+dapt-global+tapt,Interest [MASK] on deposit facility,rate,True,rate|rates|s|payments|paid
+dapt-global+tapt,Interest [MASK] on excess reserves,rate,True,rates|payments|s|paid|rate
+dapt-global+tapt,Interest [MASK] parity,rate,True,rate|rates|ing|on|rate
+dapt-global+tapt,Interest [MASK] risk,rate,True,rate|rates|ing|rate|rate
+dapt-global+tapt,Interest [MASK] swap,rate,True,rate|rates|bearing|on|income
+dapt-global+tapt,Interest [MASK] targeting,rate,True,rate|rates|ing|rate|inflation
+dapt-global+tapt,International [MASK] Fund,monetary,True,monetary|development|wildlife|reserve|investment
+dapt-global+tapt,International [MASK] of Insurance Supervisors,association,True,association|conference|organization|committee|federation
+dapt-global+tapt,International [MASK] position,investment,False,financial|growth|economic|monetary|trade
+dapt-global+tapt,Inverted [MASK] curve,yield,True,yield|phillips|money|yields|demand
+dapt-global+tapt,Labor [MASK] participation rate,force,True,force|market|force|force|participation
+dapt-global+tapt,Lender [MASK] last resort,of,True,"of|,|'s|at|the"
+dapt-global+tapt,Liquidity [MASK] test,stress,True,stress|sensitivity|conditions|risk|assessment
+dapt-global+tapt,London [MASK] Offered Rate,interbank,False,exchange|legal|bank|national|bank
+dapt-global+tapt,Long-term [MASK] operation,refinancing,False,inflation|funding|rate|market|debt
+dapt-global+tapt,Long-term [MASK] rates,interest,True,interest|forward|inflation|mortgage|real
+dapt-global+tapt,Macroprudential [MASK] measures,policy,True,policy|stability|support|easing|tightening
+dapt-global+tapt,Main [MASK] operation,refinancing,False,tenance|market|economic|reserve|business
+dapt-global+tapt,Marginal [MASK] facility,lending,True,credit|unemployment|inflation|growth|lending
+dapt-global+tapt,Monetary [MASK] committee,policy,True,policy|policy|affairs|policies|affairs
+dapt-global+tapt,Monetary [MASK] framework,policy,True,policy|policy|targeting|policy|policies
+dapt-global+tapt,Monetary [MASK] stance,policy,True,policy|policy|easing|policy|policies
+dapt-global+tapt,Monetary [MASK] transmission,policy,True,policy|policy|inflation|easing|monetary
+dapt-global+tapt,Natural [MASK] of interest,rate,True,rates|rate|balances|sources|differences
+dapt-global+tapt,Natural [MASK] of unemployment,rate,True,rate|rates|ization|levels|sources
+dapt-global+tapt,Negative [MASK] rates,interest,True,interest|inflation|real|growth|exchange
+dapt-global+tapt,Net [MASK] debt,external,True,external|domestic|foreign|mortgage|household
+dapt-global+tapt,Neutral [MASK] policy,monetary,True,monetary|monetary|interest|fiscal|economic
+dapt-global+tapt,Nominal [MASK] rate,exchange,False,unemployment|interest|savings|saving|inflation
+dapt-global+tapt,Non-accelerating [MASK] rate of unemployment,inflation,False,civilian|trend|structural|average|the
+dapt-global+tapt,Non-bank [MASK] institution,financial,True,financial|financial|holding|monetary|private
+dapt-global+tapt,Non-bank [MASK] intermediation,credit,True,financial|credit|monetary|mortgage|business
+dapt-global+tapt,Open [MASK] operations,market,True,market|market|market|markets|ended
+dapt-global+tapt,Overnight [MASK] facility,deposit,True,loan|deposit|lending|repo|loans
+dapt-global+tapt,Overnight [MASK] swap,index,True,index|inflation|mortgage|indexed|default
+dapt-global+tapt,Pegged [MASK] rate,exchange,True,interest|exchange|funds|inflation|unemployment
+dapt-global+tapt,Producer [MASK] index,price,True,price|prices|cost|price|inflation
+dapt-global+tapt,Purchasing [MASK] parity,power,True,power|power|price|cost|tax
+dapt-global+tapt,Real [MASK] exchange rate,effective,True,foreign|effective|domestic|gdp|yugoslav
+dapt-global+tapt,Real [MASK] rate,exchange,False,unemployment|interest|growth|funds|gdp
+dapt-global+tapt,Safe [MASK] assets,haven,True,domestic|haven|foreign|financial|haven
+dapt-global+tapt,Secured [MASK] financing rate,overnight,True,mortgage|debt|corporate|interest|overnight
+dapt-global+tapt,Short-term [MASK] rates,interest,True,interest|mortgage|interest|inflation|sovereign
+dapt-global+tapt,Sovereign [MASK] crisis,debt,True,debt|financial|loan|bond|currency
+dapt-global+tapt,Sovereign [MASK] fund,wealth,True,wealth|debt|stability|investment|rescue
+dapt-global+tapt,Special [MASK] Rights,drawing,False,voting|privacy|membership|property|franchise
+dapt-global+tapt,Special [MASK] vehicle,purpose,False,circumstances|considerations|economic|interest|tax
+dapt-global+tapt,Systemically [MASK] financial institution,important,True,important|important|significant|critical|important
+dapt-global+tapt,Targeted [MASK] refinancing operations,longer,False,mortgage|principal|debt|loan|securities
+dapt-global+tapt,Terms [MASK] trade,of,True,of|for|and|or|on
+dapt-global+tapt,Tier [MASK] capital,1,True,1|one|2|i|two
+dapt-global+tapt,Tight [MASK] policy,monetary,True,monetary|fiscal|ening|monetary|ened
+dapt-global+tapt,Too [MASK] to fail,big,True,big|large|good|great|important
+dapt-global+tapt,Unconventional [MASK] policy,monetary,True,monetary|fiscal|growth|tax|economic
+dapt-global+tapt,Value [MASK] Risk,at,True,of|and|at|added|from
+dapt-global+tapt,Velocity [MASK] money,of,True,of|and|in|for|on
+dapt-global+tapt,Yield [MASK] control,curve,True,curve|s|curve|under|inflation
+dapt-global+tapt,Zero [MASK] bound,lower,True,lower|inflation|upper|effective|deflation

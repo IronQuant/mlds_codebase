@@ -1,0 +1,10 @@
+model,mlm_loss
+roberta-large,1.2529
+dapt-fomc,0.9524
+dapt-global,0.9676
+tapt-s5768,1.0716
+tapt-s78516,1.0668
+tapt-s944601,1.0652
+dapt-global+tapt-s5768,1.0294
+dapt-global+tapt-s78516,1.0332
+dapt-global+tapt-s944601,1.0332
