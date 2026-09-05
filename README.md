@@ -65,13 +65,12 @@ without running anything: `results.csv`, `grid.csv`, `idioms.csv`,
 | `data/` | One loader per corpus, plus the adaptation pool construction |
 | `models/` | One module per model family, each exposing a fit-and-score function |
 | `experiments/` | The notebooks that produce the results |
-| `figures/` | The notebooks that produce the thesis figures |
 | `utils/` | Corpus normalisation and the results-file helpers |
 
 ## Run order
 
-The experiment notebooks are independent, except that the figure notebooks read
-`results.csv` and so need the experiments to have run first.
+The experiment notebooks are independent of one another and can be run in any
+order.
 
 1. `experiments/grid.ipynb` searches learning rate and batch size for the six
    encoders. The winners are already recorded in `config.py`, so this is only
