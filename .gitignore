@@ -22,5 +22,7 @@ Thumbs.db
 # adapted checkpoints land here when no Drive is mounted
 models/*/
 
-# figures are produced from the committed results files, not shipped
-figures/
+# figure outputs are regenerated from the committed results files. the
+# notebooks that produce them are tracked.
+figures/*.png
+figures/*.pdf
